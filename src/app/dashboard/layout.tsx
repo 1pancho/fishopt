@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { AuthProvider } from "./_components/auth-provider";
 
 const navLinks = [
   {
@@ -108,7 +108,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Main */}
       <main className="flex-1 min-w-0 md:overflow-auto">
         <div className="md:hidden h-14" aria-hidden="true" />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         {/* Mobile bottom nav */}
         <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border flex">
           {navLinks.slice(0, 4).map((link) => (

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { mockAds } from "@/shared/lib/ads";
+import { useState, useEffect } from "react";
+import { useAuth } from "../_components/auth-provider";
+import { apiGetMyAds, apiCreateAd, apiDeleteAd, type ApiAd } from "@/shared/lib/api";
 import { FISH_CATEGORIES, REGIONS } from "@/shared/config/site";
 
 type NewAd = {
@@ -25,40 +26,64 @@ const emptyAd: NewAd = {
 };
 
 export default function DashboardAdsPage() {
-  const myAds = mockAds.filter((a) => a.companyId === "1");
-  const [ads, setAds] = useState(myAds);
+  const { token } = useAuth();
+  const [ads, setAds] = useState<ApiAd[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [newAd, setNewAd] = useState<NewAd>(emptyAd);
+  const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const handleAdd = () => {
+  useEffect(() => {
+    apiGetMyAds(token)
+      .then(setAds)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [token]);
+
+  const handleAdd = async () => {
     if (!newAd.title || !newAd.category) return;
-    setAds((prev) => [
-      ...prev,
-      {
-        id: `new-${Date.now()}`,
+    setSubmitting(true);
+    try {
+      const created = await apiCreateAd(token, {
         type: newAd.type,
         title: newAd.title,
-        description: newAd.description,
+        description: newAd.description || undefined,
         category: newAd.category,
         region: newAd.region || "Приморский край",
         price: newAd.price ? Number(newAd.price) : undefined,
-        priceUnit: "kg" as const,
         quantity: newAd.quantity ? Number(newAd.quantity) : undefined,
-        contactName: "Дальрыбпоставка",
-        phone: "+7 (423) 222-33-44",
-        companyId: "1",
-        publishedAt: new Date().toISOString().split("T")[0],
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
-      },
-    ]);
-    setNewAd(emptyAd);
-    setShowForm(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+        priceUnit: "kg",
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      });
+      setAds((prev) => [created, ...prev]);
+      setNewAd(emptyAd);
+      setShowForm(false);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      alert("Ошибка при публикации объявления");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleDelete = (id: string) => setAds((prev) => prev.filter((a) => a.id !== id));
+  const handleDelete = async (id: string) => {
+    try {
+      await apiDeleteAd(token, id);
+      setAds((prev) => prev.filter((a) => a.id !== id));
+    } catch {
+      alert("Ошибка при удалении");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-4 md:p-8 flex items-center justify-center min-h-64">
+        <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 md:p-8 max-w-3xl">
@@ -72,7 +97,6 @@ export default function DashboardAdsPage() {
         )}
       </div>
 
-      {/* Existing ads */}
       {ads.length > 0 ? (
         <div className="flex flex-col gap-3 mb-4">
           {ads.map((ad) => (
@@ -88,16 +112,12 @@ export default function DashboardAdsPage() {
                   <span className="text-xs text-muted-foreground">{ad.category}</span>
                   <span className="text-xs text-muted-foreground">· {ad.region}</span>
                 </div>
-                <h3 className="font-semibold text-foreground leading-snug mb-1 text-sm">
-                  {ad.title}
-                </h3>
+                <h3 className="font-semibold text-foreground leading-snug mb-1 text-sm">{ad.title}</h3>
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
                   {ad.price && <span className="font-medium text-foreground">{ad.price.toLocaleString("ru-RU")} ₽/кг</span>}
                   {ad.quantity && <span>{ad.quantity >= 1000 ? `${ad.quantity / 1000} т` : `${ad.quantity} кг`}</span>}
                   {ad.expiresAt && (
-                    <span>
-                      до {new Date(ad.expiresAt).toLocaleDateString("ru-RU", { day: "numeric", month: "short" })}
-                    </span>
+                    <span>до {new Date(ad.expiresAt).toLocaleDateString("ru-RU", { day: "numeric", month: "short" })}</span>
                   )}
                 </div>
               </div>
@@ -122,12 +142,10 @@ export default function DashboardAdsPage() {
         </div>
       )}
 
-      {/* Add form */}
       {showForm ? (
         <div className="bg-white rounded-xl border border-primary/30 p-6">
           <h3 className="font-semibold text-foreground mb-4">Новое объявление</h3>
 
-          {/* Type toggle */}
           <div className="flex gap-2 mb-4">
             {(["sell", "buy"] as const).map((t) => (
               <button
@@ -235,10 +253,10 @@ export default function DashboardAdsPage() {
             <button
               type="button"
               onClick={handleAdd}
-              disabled={!newAd.title || !newAd.category}
+              disabled={!newAd.title || !newAd.category || submitting}
               className="px-5 py-2 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 disabled:opacity-40 transition-colors"
             >
-              Опубликовать
+              {submitting ? "Публикация..." : "Опубликовать"}
             </button>
           </div>
         </div>
