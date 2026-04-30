@@ -23,13 +23,18 @@ export function CategoriesGrid() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-          {FISH_CATEGORIES.map((cat) => (
+          {FISH_CATEGORIES.map((cat, i) => (
             <Link
               key={cat.slug}
               href={`/companies/${cat.slug}`}
-              className="group flex flex-col items-center gap-2 p-4 rounded-xl border border-border hover:border-primary/30 hover:bg-primary/5 transition-all text-center"
+              className="stagger-fade group flex flex-col items-center gap-2 p-4 rounded-xl border border-border hover:border-primary/30 hover:bg-primary/5 card-glow text-center"
+              style={{ animationDelay: `${i * 55}ms` }}
             >
-              <span className="text-3xl md:text-4xl" role="img" aria-label={cat.label}>
+              <span
+                className="emoji-hover text-3xl md:text-4xl block"
+                role="img"
+                aria-label={cat.label}
+              >
                 {cat.icon}
               </span>
               <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors leading-tight">

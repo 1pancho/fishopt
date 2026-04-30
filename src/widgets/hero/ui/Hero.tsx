@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { FISH_CATEGORIES } from "@/shared/config/site";
+import { FishParticles } from "./FishParticles";
+import { AnimatedCounter } from "./AnimatedCounter";
 
 const stats = [
   { value: "3 500+", label: "компаний" },
@@ -11,11 +13,15 @@ const stats = [
 export function Hero() {
   return (
     <section className="relative bg-gradient-to-br from-[#0c4a6e] via-[#075985] to-[#0369a1] text-white overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10" aria-hidden="true">
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/10 translate-x-1/3 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/10 -translate-x-1/3 translate-y-1/3" />
+      {/* Drifting background orbs */}
+      <div className="absolute inset-0 opacity-15" aria-hidden="true">
+        <div className="orb-drift absolute top-0 right-0 w-96 h-96 rounded-full bg-white/10 translate-x-1/3 -translate-y-1/3" />
+        <div className="orb-drift-slow absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/10 -translate-x-1/3 translate-y-1/3" />
+        <div className="orb-drift absolute top-1/2 left-1/2 w-48 h-48 rounded-full bg-cyan-400/10" style={{ animationDelay: "4s" }} />
       </div>
+
+      {/* Floating fish particles */}
+      <FishParticles />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         {/* Main heading */}
@@ -30,7 +36,7 @@ export function Hero() {
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
             Найдите поставщика{" "}
-            <span className="text-[#38bdf8]">рыбы и морепродуктов</span>{" "}
+            <span className="gradient-text-anim">рыбы и морепродуктов</span>{" "}
             по всей России
           </h1>
 
@@ -62,13 +68,13 @@ export function Hero() {
                 type="search"
                 name="q"
                 placeholder="Лосось, краб, треска, горбуша..."
-                className="w-full pl-10 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent text-base backdrop-blur-sm"
+                className="w-full pl-10 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent text-base backdrop-blur-sm transition-all"
                 aria-label="Поиск рыбы и морепродуктов"
               />
             </div>
             <button
               type="submit"
-              className="px-6 py-3.5 rounded-xl bg-white text-primary font-semibold hover:bg-white/90 transition-colors text-base shrink-0"
+              className="btn-glow px-6 py-3.5 rounded-xl bg-white text-primary font-semibold hover:bg-white/90 transition-colors text-base shrink-0"
             >
               Найти
             </button>
@@ -81,7 +87,7 @@ export function Hero() {
               <Link
                 key={cat.slug}
                 href={`/companies/${cat.slug}`}
-                className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white/80 text-sm transition-colors"
+                className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/25 text-white/80 text-sm transition-all hover:scale-105 hover:text-white"
               >
                 {cat.label}
               </Link>
@@ -94,9 +100,11 @@ export function Hero() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10"
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10 hover:bg-white/15 transition-all hover:-translate-y-1"
             >
-              <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
+              <div className="text-2xl md:text-3xl font-bold text-white">
+                <AnimatedCounter value={stat.value} />
+              </div>
               <div className="text-white/60 text-sm mt-1">{stat.label}</div>
             </div>
           ))}

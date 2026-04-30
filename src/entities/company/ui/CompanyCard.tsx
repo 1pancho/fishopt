@@ -19,11 +19,11 @@ export function CompanyCard({ company }: Props) {
   return (
     <Link
       href={`/company/${company.slug}`}
-      className="group block p-5 rounded-xl border border-border bg-white hover:border-primary/30 hover:shadow-md transition-all"
+      className="card-glow group block p-5 rounded-xl border border-border bg-white transition-all"
     >
       {/* Header */}
       <div className="flex items-start gap-3 mb-3">
-        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-lg shrink-0">
+        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-lg shrink-0 group-hover:bg-primary/15 transition-colors">
           {company.logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -46,7 +46,7 @@ export function CompanyCard({ company }: Props) {
         </div>
         {company.verified && (
           <div
-            className="shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center ml-auto"
+            className="verified-pulse shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center ml-auto"
             title="Проверенная компания"
             aria-label="Проверенная компания"
           >

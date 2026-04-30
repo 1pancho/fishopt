@@ -25,8 +25,10 @@ export async function RecentCompanies() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {result.data.map((company) => (
-            <CompanyCard key={company.id} company={company as any} />
+          {result.data.map((company, i) => (
+            <div key={company.id} className="stagger-fade" style={{ animationDelay: `${i * 80}ms` }}>
+              <CompanyCard company={company as any} />
+            </div>
           ))}
         </div>
 
