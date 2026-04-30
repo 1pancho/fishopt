@@ -28,6 +28,7 @@ jobs:
             cd /var/www/fishopt
             npm ci
             npm run build
+            chown -R deploy:deploy /var/www/fishopt/.next
 
             /home/deploy/.npm-global/bin/pm2 startOrRestart /var/www/fishopt/ecosystem.config.js
             /home/deploy/.npm-global/bin/pm2 save
