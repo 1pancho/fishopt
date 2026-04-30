@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { PageTransition } from "@/shared/ui/PageTransition";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -84,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
