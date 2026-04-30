@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { siteConfig } from "@/shared/config/site";
 
 const navLinks = [
@@ -14,6 +15,18 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("fishopt_token"));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("fishopt_token");
+    setIsLoggedIn(false);
+    router.push("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-border shadow-sm">
@@ -50,18 +63,38 @@ export function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-2">
-            <Link
-              href="/login"
-              className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
-            >
-              Войти
-            </Link>
-            <Link
-              href="/register"
-              className="px-4 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
-            >
-              Разместить компанию
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+                >
+                  Личный кабинет
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
+                >
+                  Выйти
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+                >
+                  Войти
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-4 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
+                >
+                  Разместить компанию
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -100,20 +133,41 @@ export function Header() {
               </Link>
             ))}
             <div className="mt-3 pt-3 border-t border-border flex flex-col gap-2">
-              <Link
-                href="/login"
-                onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg text-base font-medium text-foreground/70 hover:bg-secondary transition-colors text-center"
-              >
-                Войти
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors text-center"
-              >
-                Разместить компанию
-              </Link>
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setMobileOpen(false)}
+                    className="px-3 py-3 rounded-lg text-base font-medium text-foreground/70 hover:bg-secondary transition-colors text-center"
+                  >
+                    Личный кабинет
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => { setMobileOpen(false); handleLogout(); }}
+                    className="px-3 py-3 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors text-center"
+                  >
+                    Выйти
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="px-3 py-3 rounded-lg text-base font-medium text-foreground/70 hover:bg-secondary transition-colors text-center"
+                  >
+                    Войти
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileOpen(false)}
+                    className="px-3 py-3 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors text-center"
+                  >
+                    Разместить компанию
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
