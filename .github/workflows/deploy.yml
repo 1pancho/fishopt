@@ -20,9 +20,10 @@ jobs:
             git pull origin main
 
             cd /var/www/fishopt/backend
-            npm ci --omit=dev
+            npm ci
+            ./node_modules/.bin/prisma generate
+            ./node_modules/.bin/prisma migrate deploy
             npm run build
-            npx prisma migrate deploy
 
             cd /var/www/fishopt
             npm ci
