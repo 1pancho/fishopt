@@ -28,5 +28,5 @@ jobs:
             npm ci
             npm run build
 
-            /home/deploy/.npm-global/bin/pm2 restart fishopt-frontend fishopt-backend
+            /home/deploy/.npm-global/bin/pm2 startOrRestart /var/www/fishopt/ecosystem.config.js
             /home/deploy/.npm-global/bin/pm2 save
