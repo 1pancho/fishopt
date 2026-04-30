@@ -26,7 +26,7 @@ export function Header() {
             aria-label="Fishopt — на главную"
           >
             <Image
-              src="/logo.png"
+              src="/with_padding.png"
               alt="Fishopt"
               width={120}
               height={40}
