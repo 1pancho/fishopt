@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  COMPANY
+}
+
+enum AdType {
+  sell
+  buy
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(COMPANY)
+  company      Company? @relation(fields: [companyId], references: [id])
+  companyId    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Company {
+  id             String      @id @default(cuid())
+  slug           String      @unique
+  name           String
+  inn            String?
+  region         String
+  city           String?
+  activityTypes  String[]
+  categories     String[]
+  phone          String?
+  email          String?
+  website        String?
+  description    String?
+  logoUrl        String?
+  isVerified     Boolean     @default(false)
+  priceLists     PriceList[]
+  ads            Ad[]
+  users          User[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model PriceList {
+  id        String      @id @default(cuid())
+  company   Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  items     PriceItem[]
+  updatedAt DateTime    @updatedAt
+  createdAt DateTime    @default(now())
+}
+
+model PriceItem {
+  id             String    @id @default(cuid())
+  priceList      PriceList @relation(fields: [priceListId], references: [id], onDelete: Cascade)
+  priceListId    String
+  name           String
+  category       String
+  processingType String
+  price          Float
+  currency       String    @default("RUB")
+  unit           String    @default("kg")
+  minOrder       Float?
+  inStock        Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Ad {
+  id          String   @id @default(cuid())
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId   String
+  type        AdType
+  title       String
+  description String?
+  category    String
+  region      String
+  price       Float?
+  priceUnit   String   @default("kg")
+  quantity    Float?
+  contactName String?
+  phone       String?
+  publishedAt DateTime @default(now())
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NewsArticle {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  category    String
+  imageUrl    String?
+  author      String
+  readTime    Int      @default(3)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
