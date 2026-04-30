@@ -99,6 +99,21 @@ export function Hero() {
           ))}
         </div>
       </div>
+
+      {/* Wave divider */}
+      <div className="relative h-12 md:h-16 overflow-hidden" aria-hidden="true">
+        <svg
+          viewBox="0 0 800 80"
+          preserveAspectRatio="none"
+          className="absolute bottom-0 w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M 0 40 Q 200 80 400 40 Q 600 0 800 40 L 800 80 L 0 80 Z"
+            fill="#f8fafc"
+          />
+        </svg>
+      </div>
     </section>
   );
 }
