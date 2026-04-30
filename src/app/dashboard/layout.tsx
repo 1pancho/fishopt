@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AuthProvider } from "./_components/auth-provider";
 
 const navLinks = [
@@ -47,11 +48,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className="hidden md:flex flex-col w-60 bg-[#0c4a6e] text-white shrink-0">
         {/* Logo */}
         <div className="px-5 py-5 border-b border-white/10">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-white text-primary font-bold text-sm flex items-center justify-center">
-              F
-            </div>
-            <span className="font-bold text-lg">Fishopt</span>
+          <Link href="/" className="flex items-center group">
+            <Image src="/logo.png" alt="Fishopt" width={100} height={34} className="h-8 w-auto brightness-0 invert" />
           </Link>
         </div>
 
@@ -98,9 +96,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Mobile header */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-[#0c4a6e] text-white px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-white text-primary font-bold text-xs flex items-center justify-center">F</div>
-          <span className="font-bold">Fishopt</span>
+        <Link href="/" className="flex items-center">
+          <Image src="/logo.png" alt="Fishopt" width={80} height={27} className="h-7 w-auto brightness-0 invert" />
         </Link>
         <span className="text-sm text-white/70">Дальрыбпоставка</span>
       </div>

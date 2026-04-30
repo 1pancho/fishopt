@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { siteConfig } from "@/shared/config/site";
 
@@ -21,15 +22,17 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 shrink-0"
+            className="flex items-center shrink-0"
             aria-label="Fishopt — на главную"
           >
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-white font-bold text-sm select-none">
-              F
-            </div>
-            <span className="text-lg font-bold text-primary tracking-tight">
-              Fishopt
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Fishopt"
+              width={120}
+              height={40}
+              className="h-9 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}

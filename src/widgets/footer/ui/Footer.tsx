@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig, FISH_CATEGORIES, REGIONS } from "@/shared/config/site";
 
 const topCategories = FISH_CATEGORIES.slice(0, 6);
@@ -12,11 +13,8 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white text-primary font-bold text-sm">
-                F
-              </div>
-              <span className="text-lg font-bold tracking-tight">Fishopt</span>
+            <Link href="/" className="flex items-center mb-4">
+              <Image src="/logo.png" alt="Fishopt" width={100} height={34} className="h-8 w-auto brightness-0 invert" />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed">
               Современный B2B портал оптовой торговли рыбой и морепродуктами по всей России.
