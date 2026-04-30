@@ -18,12 +18,12 @@ export const FISH_CATEGORIES = [
   { slug: "krab", label: "Краб", icon: "🦀" },
   { slug: "krevetka", label: "Креветка", icon: "🦐" },
   { slug: "muksun", label: "Муксун", icon: "🐡" },
-  { slug: "gorbуsha", label: "Горбуша", icon: "🐟" },
+  { slug: "gorbusha", label: "Горбуша", icon: "🐟" },
   { slug: "mintaj", label: "Минтай", icon: "🐠" },
   { slug: "ikra", label: "Икра", icon: "🟠" },
-  { slug: "kальmar", label: "Кальмар", icon: "🦑" },
+  { slug: "kalmar", label: "Кальмар", icon: "🦑" },
   { slug: "seld", label: "Сельдь", icon: "🐟" },
-  { slug: "osеtr", label: "Осётр", icon: "🐠" },
+  { slug: "osetr", label: "Осётр", icon: "🐠" },
   { slug: "tunets", label: "Тунец", icon: "🐡" },
 ] as const;
 

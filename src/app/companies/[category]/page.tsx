@@ -5,7 +5,7 @@ import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
 import { CompanyFilters, MobileFiltersDrawer } from "@/widgets/catalog-filters";
 import { CompanyCard } from "@/entities/company";
-import { filterCompanies } from "@/shared/lib/companies";
+import { apiGetCompanies } from "@/shared/lib/api";
 import { FISH_CATEGORIES } from "@/shared/config/site";
 
 type Props = {
@@ -43,11 +43,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const cat = FISH_CATEGORIES.find((c) => c.slug === category);
   if (!cat) notFound();
 
-  const companies = filterCompanies({
+  const result = await apiGetCompanies({
     category: cat.label,
     region: sp.region,
     activity: sp.activity,
-  });
+  }).catch(() => ({ data: [], total: 0, page: 1, limit: 20 }));
+  const companies = result.data;
+  const total = result.total;
 
   return (
     <>
@@ -76,7 +78,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   {cat.label} оптом
                 </h1>
                 <p className="text-white/70 mt-1">
-                  {companies.length} поставщик{companies.length === 1 ? "" : companies.length < 5 ? "а" : "ов"} по всей России
+                  {total} поставщик{total === 1 ? "" : total < 5 ? "а" : "ов"} по всей России
                 </p>
               </div>
             </div>
@@ -125,7 +127,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {companies.map((company) => (
-                      <CompanyCard key={company.id} company={company} />
+                      <CompanyCard key={company.id} company={company as any} />
                     ))}
                   </div>
                 </>
