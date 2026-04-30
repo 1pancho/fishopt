@@ -21,7 +21,10 @@ export function Hero() {
         {/* Main heading */}
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse" />
+            <span className="relative flex w-2.5 h-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2dd4bf] opacity-75" />
+              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-[#2dd4bf]" />
+            </span>
             Портал №1 для оптовой торговли рыбой в России
           </div>
 
