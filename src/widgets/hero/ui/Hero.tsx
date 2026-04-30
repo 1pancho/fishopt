@@ -3,6 +3,9 @@ import { FISH_CATEGORIES } from "@/shared/config/site";
 import { FishParticles } from "./FishParticles";
 import { AnimatedCounter } from "./AnimatedCounter";
 import { TypewriterText } from "./TypewriterText";
+import { SpotlightCursor } from "./SpotlightCursor";
+import { LiveActivityWidget } from "./LiveActivityWidget";
+import { MagneticButton } from "@/shared/ui/MagneticButton";
 
 const stats = [
   { value: "3 500+", label: "компаний" },
@@ -11,9 +14,15 @@ const stats = [
   { value: "Ежедневно", label: "обновляем прайсы" },
 ];
 
+const headingWords1 = ["Найдите", "поставщика"];
+const headingWords2 = ["по", "всей", "России"];
+
 export function Hero() {
   return (
     <section className="relative bg-gradient-to-br from-[#0c4a6e] via-[#075985] to-[#0369a1] text-white overflow-hidden">
+      {/* Spotlight cursor effect */}
+      <SpotlightCursor />
+
       {/* Drifting background orbs */}
       <div className="absolute inset-0 opacity-15" aria-hidden="true">
         <div className="orb-drift absolute top-0 right-0 w-96 h-96 rounded-full bg-white/10 translate-x-1/3 -translate-y-1/3" />
@@ -24,10 +33,16 @@ export function Hero() {
       {/* Floating fish particles */}
       <FishParticles />
 
+      {/* Live activity widget */}
+      <LiveActivityWidget />
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         {/* Main heading */}
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm font-medium mb-6">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm font-medium mb-6 animate-fade-up"
+            style={{ animationDelay: "0ms" }}
+          >
             <span className="relative flex w-2.5 h-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2dd4bf] opacity-75" />
               <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-[#2dd4bf]" />
@@ -36,14 +51,33 @@ export function Hero() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
-            Найдите поставщика
-            <span className="block">
+            {headingWords1.map((word, i) => (
+              <span
+                key={word}
+                className="inline-block animate-fade-up"
+                style={{ animationDelay: `${80 + i * 100}ms` }}
+              >
+                {word}&nbsp;
+              </span>
+            ))}
+            <span className="block animate-fade-up" style={{ animationDelay: "280ms" }}>
               <TypewriterText />
             </span>
-            по всей России
+            {headingWords2.map((word, i) => (
+              <span
+                key={word}
+                className="inline-block animate-fade-up"
+                style={{ animationDelay: `${380 + i * 100}ms` }}
+              >
+                {word}{i < headingWords2.length - 1 ? "\u00A0" : ""}
+              </span>
+            ))}
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 mb-8 max-w-2xl leading-relaxed">
+          <p
+            className="text-lg md:text-xl text-white/70 mb-8 max-w-2xl leading-relaxed animate-fade-up"
+            style={{ animationDelay: "580ms" }}
+          >
             Актуальные прайс-листы, каталог проверенных компаний, доска объявлений
             и новости рыбной отрасли — всё в одном месте.
           </p>
@@ -52,7 +86,8 @@ export function Hero() {
           <form
             action="/companies"
             method="get"
-            className="flex flex-col sm:flex-row gap-3 mb-8"
+            className="flex flex-col sm:flex-row gap-3 mb-8 animate-fade-up"
+            style={{ animationDelay: "680ms" }}
             role="search"
           >
             <div className="flex-1 relative">
@@ -75,16 +110,21 @@ export function Hero() {
                 aria-label="Поиск рыбы и морепродуктов"
               />
             </div>
-            <button
-              type="submit"
-              className="btn-glow px-6 py-3.5 rounded-xl bg-white text-primary font-semibold hover:bg-white/90 transition-colors text-base shrink-0"
-            >
-              Найти
-            </button>
+            <MagneticButton>
+              <button
+                type="submit"
+                className="btn-glow px-6 py-3.5 rounded-xl bg-white text-primary font-semibold hover:bg-white/90 transition-colors text-base shrink-0"
+              >
+                Найти
+              </button>
+            </MagneticButton>
           </form>
 
           {/* Popular tags */}
-          <div className="flex flex-wrap gap-2">
+          <div
+            className="flex flex-wrap gap-2 animate-fade-up"
+            style={{ animationDelay: "760ms" }}
+          >
             <span className="text-white/50 text-sm mr-1">Популярно:</span>
             {FISH_CATEGORIES.slice(0, 6).map((cat) => (
               <Link
@@ -100,10 +140,11 @@ export function Hero() {
 
         {/* Stats */}
         <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat) => (
+          {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10 hover:bg-white/15 transition-all hover:-translate-y-1"
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10 hover:bg-white/15 transition-all hover:-translate-y-1 animate-fade-up"
+              style={{ animationDelay: `${860 + i * 80}ms` }}
             >
               <div className="text-2xl md:text-3xl font-bold text-white">
                 <AnimatedCounter value={stat.value} />

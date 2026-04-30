@@ -7,6 +7,7 @@ import { RecentCompanies } from "@/widgets/company-card";
 import { NewsPreview } from "@/widgets/news-card";
 import { ScrollReveal } from "@/shared/ui/ScrollReveal";
 import { PriceTicker } from "@/widgets/price-ticker";
+import { ScrollProgressBar } from "@/shared/ui/ScrollProgressBar";
 
 export const metadata: Metadata = {
   title: "Fishopt — Оптовая торговля рыбой и морепродуктами в России",
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <ScrollProgressBar />
       <Header />
       <PriceTicker />
       <main id="main-content">
