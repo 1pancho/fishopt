@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FISH_CATEGORIES } from "@/shared/config/site";
 import { FishParticles } from "./FishParticles";
 import { AnimatedCounter } from "./AnimatedCounter";
+import { TypewriterText } from "./TypewriterText";
 
 const stats = [
   { value: "3 500+", label: "компаний" },
@@ -36,7 +37,7 @@ export function Hero() {
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
             Найдите поставщика{" "}
-            <span className="gradient-text-anim">рыбы и морепродуктов</span>{" "}
+            <TypewriterText />{" "}
             по всей России
           </h1>
 

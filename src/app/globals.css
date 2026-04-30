@@ -270,11 +270,37 @@
   width: 100%;
 }
 
+/* 3D Tilt card wrapper */
+.tilt-wrap {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+/* Typewriter blinking cursor */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Price ticker scrolling marquee */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll 40s linear infinite;
+}
+.ticker-bar:hover .ticker-track {
+  animation-play-state: paused;
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .fish-float, .orb-drift, .orb-drift-slow, .btn-glow,
   .gradient-text-anim, .stagger-fade, .animate-fade-up,
-  .sr-hidden { animation: none !important; transition: none !important; }
+  .sr-hidden, .tilt-wrap, .ticker-track { animation: none !important; transition: none !important; }
   .sr-hidden { opacity: 1; transform: none; }
   .gradient-text-anim { -webkit-text-fill-color: #38bdf8; }
 }

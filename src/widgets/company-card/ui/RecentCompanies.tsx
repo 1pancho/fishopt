@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
+import { TiltCard } from "@/shared/ui/TiltCard";
 
 export async function RecentCompanies() {
   const result = await apiGetCompanies({ limit: 6 }).catch(() => ({ data: [] }));
@@ -26,9 +27,9 @@ export async function RecentCompanies() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {result.data.map((company, i) => (
-            <div key={company.id} className="stagger-fade" style={{ animationDelay: `${i * 80}ms` }}>
+            <TiltCard key={company.id} className="stagger-fade" style={{ animationDelay: `${i * 80}ms` }}>
               <CompanyCard company={company as any} />
-            </div>
+            </TiltCard>
           ))}
         </div>
 

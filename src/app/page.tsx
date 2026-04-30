@@ -6,6 +6,7 @@ import { CategoriesGrid } from "@/widgets/catalog-filters";
 import { RecentCompanies } from "@/widgets/company-card";
 import { NewsPreview } from "@/widgets/news-card";
 import { ScrollReveal } from "@/shared/ui/ScrollReveal";
+import { PriceTicker } from "@/widgets/price-ticker";
 
 export const metadata: Metadata = {
   title: "Fishopt — Оптовая торговля рыбой и морепродуктами в России",
@@ -20,6 +21,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
+      <PriceTicker />
       <main id="main-content">
         <Hero />
         <ScrollReveal>
