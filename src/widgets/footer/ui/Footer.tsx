@@ -14,7 +14,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center mb-4">
-              <Image src="/logo.png" alt="Fishopt" width={100} height={34} className="h-8 w-auto brightness-0 invert" />
+              <Image src="/logo.png" alt="Fishopt" width={100} height={34} className="h-8 w-auto rounded-lg" />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed">
               Современный B2B портал оптовой торговли рыбой и морепродуктами по всей России.

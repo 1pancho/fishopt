@@ -1,76 +1,32 @@
-name: Deploy to Production
+name: Deploy to VPS
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   deploy:
-    name: Build & Deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
     steps:
-      # ── 1. Checkout ────────────────────────────────────────────────────────
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # ── 2. Node.js ─────────────────────────────────────────────────────────
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      # ── 3. Install & build frontend ────────────────────────────────────────
-      - name: Install frontend deps
-        run: npm ci
-
-      - name: Build frontend
-        run: npm run build
-        env:
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-
-      # ── 4. Install & build backend ─────────────────────────────────────────
-      - name: Install backend deps
-        run: cd backend && npm ci
-
-      - name: Build backend
-        run: cd backend && npm run build
-
-      # ── 5. Deploy via SSH ──────────────────────────────────────────────────
-      - name: Deploy to VPS
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT || 22 }}
           script: |
-            set -e
             cd /var/www/fishopt
-
-            echo "→ Pulling latest code..."
+            git config --global --add safe.directory /var/www/fishopt
             git pull origin main
 
-            echo "→ Installing frontend deps..."
+            cd /var/www/fishopt/backend
             npm ci --omit=dev
-
-            echo "→ Building frontend..."
-            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} npm run build
-
-            echo "→ Installing backend deps..."
-            cd backend
-            npm ci --omit=dev
-
-            echo "→ Building backend..."
             npm run build
-
-            echo "→ Applying DB migrations..."
             npx prisma migrate deploy
 
-            echo "→ Restarting services..."
-            pm2 reload ecosystem.config.js --update-env
+            cd /var/www/fishopt
+            npm ci
+            npm run build
 
-            echo "✅ Deploy complete"
+            /home/deploy/.npm-global/bin/pm2 restart fishopt-frontend fishopt-backend
+            /home/deploy/.npm-global/bin/pm2 save
