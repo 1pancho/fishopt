@@ -4,6 +4,7 @@ import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
 import { apiGetNews } from "@/shared/lib/api";
 import { NEWS_CATEGORIES, categoryLabels } from "@/shared/lib/news";
+import { NewsSubscribeForm } from "@/widgets/news-card";
 
 export const metadata: Metadata = {
   title: "Новости рыбной отрасли России",
@@ -138,19 +139,7 @@ export default async function NewsPage({ searchParams }: Props) {
                   <p className="text-white/70 text-sm mb-4 leading-relaxed">
                     Еженедельный дайджест рынка рыбы и морепродуктов
                   </p>
-                  <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-                    <input
-                      type="email"
-                      placeholder="ваш@email.ru"
-                      className="px-3 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
-                    />
-                    <button
-                      type="submit"
-                      className="py-2.5 rounded-lg bg-white text-primary font-semibold text-sm hover:bg-white/90 transition-colors"
-                    >
-                      Подписаться
-                    </button>
-                  </form>
+                  <NewsSubscribeForm />
                 </div>
 
                 {/* Categories list */}
