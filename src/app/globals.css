@@ -474,6 +474,10 @@
 .shine-card:hover .s-line-3::before,
 .shine-card:hover .s-line-3::after { transition-delay: .3s; }
 
+/* ── Logo — белое лого на светлом фоне (хедер) ──────────────────────────── */
+/* brightness(0) → все непрозрачные пиксели становятся чёрными, прозрачность сохраняется */
+.logo-dark { filter: brightness(0); }
+
 /* ── Premium CTA Button (Разместить компанию) ────────────────────────────── */
 .btn-cta {
   position: relative;

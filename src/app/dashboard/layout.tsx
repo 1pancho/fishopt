@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Logo */}
         <div className="px-5 py-5 border-b border-white/10">
           <Link href="/" className="flex items-center group">
-            <Image src="/logo.png" alt="Fishopt" width={100} height={34} className="h-8 w-auto rounded-lg" />
+            <Image src="/logo.png" alt="Fishopt" width={100} height={34} className="h-8 w-auto" />
           </Link>
         </div>
 
@@ -97,7 +97,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Mobile header */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-[#0c4a6e] text-white px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="Fishopt" width={80} height={27} className="h-7 w-auto rounded" />
+          <Image src="/logo.png" alt="Fishopt" width={80} height={27} className="h-7 w-auto" />
         </Link>
         <span className="text-sm text-white/70">Дальрыбпоставка</span>
       </div>

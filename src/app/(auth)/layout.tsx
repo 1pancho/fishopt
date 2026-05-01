@@ -23,7 +23,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             alt="Fishopt"
             width={100}
             height={36}
-            className="h-8 w-auto rounded-lg"
+            className="h-8 w-auto"
             priority
           />
         </Link>

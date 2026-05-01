@@ -43,7 +43,7 @@ export function Header() {
               alt="Fishopt"
               width={100}
               height={36}
-              className="h-9 w-auto rounded-md"
+              className="h-9 w-auto logo-dark"
               priority
             />
           </Link>
