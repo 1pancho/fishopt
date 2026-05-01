@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { siteConfig } from "@/shared/config/site";
+import { PremiumButton } from "@/shared/ui/PremiumButton";
 
 const navLinks = [
   { href: "/companies", label: "Компании" },
@@ -87,15 +88,7 @@ export function Header() {
                 >
                   Войти
                 </Link>
-                <Link
-                  href="/register"
-                  className="btn-cta-outline btn-cta-sm"
-                >
-                  Разместить компанию
-                  <svg className="btn-arrow w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
+                <PremiumButton href="/register" label="Разместить компанию" size="sm" />
               </>
             )}
           </div>
@@ -162,13 +155,7 @@ export function Header() {
                   >
                     Войти
                   </Link>
-                  <Link
-                    href="/register"
-                    onClick={() => setMobileOpen(false)}
-                    className="btn-cta py-3 px-4 text-base w-full"
-                  >
-                    Разместить компанию
-                  </Link>
+                  <PremiumButton href="/register" label="Разместить компанию" className="w-full py-3 text-sm" />
                 </>
               )}
             </div>

@@ -478,95 +478,112 @@
 /* brightness(0) → все непрозрачные пиксели становятся чёрными, прозрачность сохраняется */
 .logo-dark { filter: brightness(0); }
 
-/* ── CTA Buttons ─────────────────────────────────────────────────────────── */
-
-/* Базовая кнопка — чистый синий без лишнего */
-.btn-cta {
+/* ── Premium Button (@kamildyrek style) ──────────────────────────────────── */
+.kd-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  background: #0369a1;
-  color: #ffffff;
-  font-weight: 600;
-  border-radius: 10px;
-  letter-spacing: 0.01em;
-  /* тонкий верхний блик — glass-эффект */
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.15) inset,
-    0 -1px 0 rgba(0,0,0,0.1) inset,
-    0 2px 6px rgba(3, 105, 161, 0.25);
-  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
-}
-.btn-cta:hover {
-  background: #0c4a6e;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.15) inset,
-    0 -1px 0 rgba(0,0,0,0.15) inset,
-    0 6px 18px rgba(3, 105, 161, 0.35);
-  transform: translateY(-1px);
-}
-.btn-cta:active {
-  background: #075985;
-  transform: translateY(0);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset, 0 1px 3px rgba(3,105,161,0.2);
-}
-
-/* Хедер — outline → заполняется при hover */
-.btn-cta-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  background: transparent;
-  color: #0369a1;
-  font-weight: 600;
-  border-radius: 9px;
-  border: 1.5px solid #0369a1;
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 11px 26px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 13px;
+  color: hsla(210, 60%, 92%, 1);
+  background-color: #0369a1;
+  box-shadow: rgba(3, 105, 161, 0.5) 2px 2px 22px;
+  border-radius: 5px;
   z-index: 0;
+  overflow: hidden;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
 }
-/* fill слой — скользит снизу вверх при hover */
-.btn-cta-outline::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #0369a1;
-  transform: translateY(101%);
-  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: -1;
-}
-.btn-cta-outline:hover::before { transform: translateY(0); }
-.btn-cta-outline:hover {
-  color: #ffffff;
-  border-color: #0369a1;
-  box-shadow: 0 4px 14px rgba(3, 105, 161, 0.3);
-}
-.btn-cta-outline:active { opacity: 0.85; }
+.kd-btn:focus { outline-color: transparent; box-shadow: #0369a1 2px 2px 22px; }
+.kd-btn:hover { box-shadow: rgba(3, 105, 161, 0.7) 2px 2px 28px; }
 
-/* Arrow — двигается вправо при hover */
-.btn-arrow {
-  display: inline-flex;
-  transition: transform 0.2s ease;
+/* Ghost text layers */
+.kd-btn .kd-right::after,
+.kd-btn::after {
+  content: var(--kd-content);
+  display: block;
+  position: absolute;
+  white-space: nowrap;
+  padding: 40px 40px;
+  pointer-events: none;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 800;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }
-.btn-cta:hover .btn-arrow,
-.btn-cta-outline:hover .btn-arrow { transform: translateX(3px); }
+.kd-btn::after {
+  font-weight: 200;
+  top: -30px;
+  left: -20px;
+  color: hsla(210, 60%, 92%, 1);
+}
+
+.kd-left, .kd-right {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: block;
+}
+.kd-right { left: 66%; }
+.kd-left  { right: 66%; }
+
+.kd-right::after {
+  top: -30px;
+  left: calc(-66% - 20px);
+  background-color: #0369a1;
+  color: transparent;
+  transition: transform 0.4s ease-out;
+  transform: translate(0, -90%) rotate(0deg);
+}
+.kd-btn:hover .kd-right::after          { transform: translate(0, -47%) rotate(0deg); }
+.kd-btn .kd-right:hover::after          { transform: translate(0, -50%) rotate(-7deg); }
+.kd-btn .kd-left:hover ~ .kd-right::after { transform: translate(0, -50%) rotate(7deg); }
+
+/* Floating bubbles */
+.kd-btn::before {
+  content: '';
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    radial-gradient(circle at 20% 35%, transparent 0, transparent 2px, rgba(255,255,255,0.9) 3px, rgba(255,255,255,0.9) 4px, transparent 4px),
+    radial-gradient(circle at 75% 44%, transparent 0, transparent 2px, rgba(255,255,255,0.9) 3px, rgba(255,255,255,0.9) 4px, transparent 4px),
+    radial-gradient(circle at 46% 52%, transparent 0, transparent 4px, rgba(255,255,255,0.9) 5px, rgba(255,255,255,0.9) 6px, transparent 6px);
+  width: 100%;
+  height: 300%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  animation: kd-bubbles 5s linear infinite both;
+}
+@keyframes kd-bubbles {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-66.666%); }
+}
 
 /* Sizes */
-.btn-cta-sm, .btn-cta-outline-sm {
-  padding: 7px 16px;
-  font-size: 13.5px;
-  gap: 6px;
+.kd-btn-sm { padding: 8px 18px; font-size: 11.5px; }
+.kd-btn-lg { padding: 14px 34px; font-size: 14px; }
+
+/* Fallback solid button для LoginForm / disabled */
+.btn-cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #0369a1; color: #fff; font-weight: 600; border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(3,105,161,0.3);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.12s;
 }
-.btn-cta-lg {
-  padding: 15px 32px;
-  font-size: 15.5px;
-  gap: 10px;
-  border-radius: 11px;
-}
+.btn-cta:hover { background: #0c4a6e; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(3,105,161,0.4); }
+.btn-cta:active { transform: translateY(0); }
 
 /* ── Auth page animated background ──────────────────────────────────────── */
 @keyframes auth-orb-1 {

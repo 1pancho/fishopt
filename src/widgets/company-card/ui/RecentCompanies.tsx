@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
 import { TiltCard } from "@/shared/ui/TiltCard";
+import { PremiumButton } from "@/shared/ui/PremiumButton";
 
 export async function RecentCompanies() {
   const result = await apiGetCompanies({ limit: 6 }).catch(() => ({ data: [] }));
@@ -43,12 +44,7 @@ export async function RecentCompanies() {
         </div>
 
         <div className="mt-10 hidden sm:flex justify-center">
-          <Link href="/register" className="btn-cta btn-cta-lg">
-            Разместить свою компанию бесплатно
-            <svg className="btn-arrow w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
+          <PremiumButton href="/register" label="Разместить свою компанию бесплатно" size="lg" />
         </div>
       </div>
     </section>

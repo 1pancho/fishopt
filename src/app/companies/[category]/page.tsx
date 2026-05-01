@@ -7,6 +7,7 @@ import { CompanyFilters, MobileFiltersDrawer } from "@/widgets/catalog-filters";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
 import { FISH_CATEGORIES } from "@/shared/config/site";
+import { PremiumButton } from "@/shared/ui/PremiumButton";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -140,12 +141,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   <p className="text-muted-foreground text-sm max-w-sm mx-auto mb-6">
                     Вы поставляете {cat.label.toLowerCase()}? Разместите свою компанию бесплатно.
                   </p>
-                  <a href="/register" className="btn-cta px-6 py-3">
-                    Разместить компанию
-                    <svg className="btn-arrow w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                    </svg>
-                  </a>
+                  <PremiumButton href="/register" label="Разместить компанию" />
                 </div>
               )}
             </div>
