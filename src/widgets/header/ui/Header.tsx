@@ -89,12 +89,12 @@ export function Header() {
                 </Link>
                 <Link
                   href="/register"
-                  className="btn-cta btn-cta-sm inline-flex items-center gap-1.5"
+                  className="btn-cta-outline btn-cta-sm"
                 >
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                  </svg>
                   Разместить компанию
+                  <svg className="btn-arrow w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
                 </Link>
               </>
             )}
@@ -165,11 +165,8 @@ export function Header() {
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
-                    className="btn-cta text-center py-3 px-3 rounded-xl text-base inline-flex items-center justify-center gap-2"
+                    className="btn-cta py-3 px-4 text-base w-full"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
                     Разместить компанию
                   </Link>
                 </>
