@@ -21,9 +21,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <Image
             src="/logo.png"
             alt="Fishopt"
-            width={110}
+            width={100}
             height={36}
-            className="h-8 w-auto brightness-0 invert"
+            className="h-8 w-auto rounded-lg"
             priority
           />
         </Link>

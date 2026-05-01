@@ -41,9 +41,9 @@ export function Header() {
             <Image
               src="/logo.png"
               alt="Fishopt"
-              width={120}
-              height={40}
-              className="h-9 w-auto"
+              width={100}
+              height={36}
+              className="h-9 w-auto rounded-md"
               priority
             />
           </Link>
