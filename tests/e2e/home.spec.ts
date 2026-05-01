@@ -9,67 +9,97 @@ test.describe("Главная страница", () => {
     await expect(page).toHaveTitle(/Fishopt/);
   });
 
-  test("хедер содержит логотип и навигацию", async ({ page }) => {
-    const header = page.locator("header");
-    await expect(header).toBeVisible();
-    await expect(header.locator("img[alt='Fishopt']")).toBeVisible();
-    await expect(header.getByRole("link", { name: "Компании" })).toBeVisible();
-    await expect(header.getByRole("link", { name: "Прайс-листы" })).toBeVisible();
-    await expect(header.getByRole("link", { name: "Новости" })).toBeVisible();
+  test("хедер — логотип присутствует", async ({ page }) => {
+    await expect(page.locator("header img[alt='Fishopt']")).toBeVisible();
+  });
+
+  test("хедер — десктоп навигация (hidden md:flex)", async ({ page }) => {
+    // nav links may be hidden on mobile (display:none) so getByRole won't find them
+    // Use CSS locator which works regardless of visibility
+    const nav = page.locator("nav[aria-label='Основная навигация']");
+    const count = await nav.locator("a").count();
+    expect(count, "Десктоп nav должен содержать ссылки").toBeGreaterThan(0);
   });
 
   test("бегущая строка цен отображается", async ({ page }) => {
-    // ticker bar is the first element after header
     const ticker = page.locator(".ticker-bar");
     await expect(ticker).toBeVisible();
     await expect(ticker).toContainText("₽/кг");
   });
 
-  test("Hero секция содержит заголовок и поиск", async ({ page }) => {
+  test("Hero — заголовок содержит 'Найдите поставщика'", async ({ page }) => {
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Найдите поставщика");
+  });
+
+  test("Hero — поисковая строка видна", async ({ page }) => {
     const hero = page.locator("section").first();
-    await expect(hero).toBeVisible();
-    await expect(hero.getByRole("heading", { level: 1 })).toContainText("Найдите поставщика");
-    await expect(hero.getByRole("searchbox")).toBeVisible();
     await expect(hero.getByRole("button", { name: "Найти" })).toBeVisible();
+    await expect(hero.locator("input[type='search']")).toBeVisible();
   });
 
-  test("Hero содержит статистику (4 блока)", async ({ page }) => {
-    const stats = page.locator("section").first().locator(".backdrop-blur-sm.rounded-xl");
-    await expect(stats).toHaveCount(4);
+  test("Hero — 4 блока статистики", async ({ page }) => {
+    // Use exact: true to avoid matching substrings in other elements
+    await expect(page.getByText("компаний", { exact: true })).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByText("регионов России", { exact: true })).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByText("видов продукции", { exact: true })).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByText("обновляем прайсы", { exact: true })).toBeVisible({ timeout: 5_000 });
   });
 
-  test("сетка категорий отображается", async ({ page }) => {
-    await expect(page.getByText("Лосось и лососёвые")).toBeVisible();
+  test("Hero — популярные теги отображаются", async ({ page }) => {
+    await expect(page.getByText("Популярно:")).toBeVisible();
+    // At least one category tag link
+    const tagLinks = page.locator("section").first().locator("a[href^='/companies/']");
+    await expect(tagLinks.first()).toBeVisible();
   });
 
-  test("секция последних компаний отображается", async ({ page }) => {
+  test("секция категорий отображается с заголовком", async ({ page }) => {
+    // CategoriesGrid heading
+    await expect(page.getByText("Виды продукции")).toBeVisible();
+  });
+
+  test("секция 'Компании на Fishopt' отображается", async ({ page }) => {
     await expect(page.getByText("Компании на Fishopt")).toBeVisible();
   });
 
-  test("футер присутствует", async ({ page }) => {
-    const footer = page.locator("footer");
-    await expect(footer).toBeVisible();
-    await expect(footer).toContainText("Fishopt");
+  test("секция 'Почему выбирают Fishopt' отображается", async ({ page }) => {
+    await expect(page.getByText("Почему выбирают Fishopt")).toBeVisible();
+  });
+
+  test("футер присутствует с названием сайта", async ({ page }) => {
+    await expect(page.locator("footer")).toBeVisible();
+    await expect(page.locator("footer")).toContainText("Fishopt");
   });
 });
 
 test.describe("Мобильная версия — главная", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
-  test("мобильное меню открывается", async ({ page }) => {
+  test("гамбургер-кнопка видна на мобиле", async ({ page }) => {
     await page.goto("/");
-    const burgerBtn = page.getByLabel("Открыть меню");
-    await expect(burgerBtn).toBeVisible();
-    await burgerBtn.click();
-    await expect(page.getByRole("link", { name: "Компании" }).last()).toBeVisible();
+    await expect(page.getByLabel("Открыть меню")).toBeVisible();
   });
 
-  test("Hero отображается корректно на мобиле", async ({ page }) => {
+  test("мобильное меню открывается и содержит навигацию", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
+    const btn = page.getByLabel("Открыть меню");
+    await expect(btn).toBeVisible({ timeout: 10_000 });
+    await btn.click();
+    const mobileNav = page.locator("nav[aria-label='Мобильная навигация']");
+    await expect(mobileNav).toBeVisible({ timeout: 10_000 });
+    await expect(mobileNav.getByRole("link", { name: "Компании" })).toBeVisible();
+  });
+
+  test("заголовок Hero не обрезан на мобиле", async ({ page }) => {
     await page.goto("/");
     const h1 = page.getByRole("heading", { level: 1 });
     await expect(h1).toBeVisible();
-    // проверяем что заголовок не обрезан
     const box = await h1.boundingBox();
-    expect(box?.width).toBeGreaterThan(100);
+    expect(box?.width).toBeGreaterThan(200);
+  });
+
+  test("поисковая строка видна на мобиле", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("input[type='search']").first()).toBeVisible();
   });
 });

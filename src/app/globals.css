@@ -301,7 +301,7 @@
   .fish-float, .orb-drift, .orb-drift-slow, .btn-glow,
   .gradient-text-anim, .stagger-fade, .animate-fade-up,
   .sr-hidden, .tilt-wrap, .ticker-track { animation: none !important; transition: none !important; }
-  .sr-hidden { opacity: 1; transform: none; }
+  .sr-hidden, .stagger-fade, .animate-fade-up { opacity: 1 !important; transform: none !important; }
   .gradient-text-anim { -webkit-text-fill-color: #38bdf8; }
 }
 

@@ -38,6 +38,7 @@ test.describe("Доступность (a11y)", () => {
 
   test("главная — h1 ровно один", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("networkidle");
     const h1Count = await page.locator("h1").count();
     expect(h1Count).toBe(1);
   });
