@@ -142,8 +142,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   </p>
                   <a
                     href="/register"
-                    className="inline-flex px-5 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors"
+                    className="btn-cta inline-flex items-center gap-2 px-6 py-3 rounded-xl"
                   >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
                     Разместить компанию
                   </a>
                 </div>

@@ -42,15 +42,18 @@ export async function RecentCompanies() {
           </Link>
         </div>
 
-        <div className="mt-8 hidden sm:flex justify-center">
+        <div className="mt-10 hidden sm:flex justify-center">
           <Link
             href="/register"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-colors"
+            className="btn-cta btn-cta-lg inline-flex items-center gap-3"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
-            Разместить свою компанию бесплатно
+            <span>Разместить свою компанию бесплатно</span>
+            <svg className="w-4 h-4 shrink-0 opacity-80" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
           </Link>
         </div>
       </div>

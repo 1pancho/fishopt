@@ -39,7 +39,7 @@ export function Header() {
             aria-label="Fishopt — на главную"
           >
             <Image
-              src="/with_padding.png"
+              src="/logo.png"
               alt="Fishopt"
               width={120}
               height={40}
@@ -89,8 +89,11 @@ export function Header() {
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
+                  className="btn-cta btn-cta-sm inline-flex items-center gap-1.5"
                 >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
                   Разместить компанию
                 </Link>
               </>
@@ -162,8 +165,11 @@ export function Header() {
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
-                    className="px-3 py-3 rounded-lg text-base font-semibold text-white bg-primary hover:bg-primary/90 transition-colors text-center"
+                    className="btn-cta text-center py-3 px-3 rounded-xl text-base inline-flex items-center justify-center gap-2"
                   >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
                     Разместить компанию
                   </Link>
                 </>

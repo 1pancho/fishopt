@@ -54,7 +54,7 @@ export function LoginForm() {
           onChange={(e) => emailChanged(e.target.value)}
           placeholder="company@example.ru"
           required
-          className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm bg-white transition-colors"
+          className="auth-input w-full px-4 py-3 rounded-xl border border-border text-sm bg-white"
         />
       </div>
 
@@ -78,7 +78,7 @@ export function LoginForm() {
             placeholder="••••••••"
             required
             minLength={6}
-            className="w-full px-4 py-3 pr-12 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm bg-white transition-colors"
+            className="auth-input w-full px-4 py-3 pr-12 rounded-xl border border-border text-sm bg-white"
           />
           <button
             type="button"
@@ -111,7 +111,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+        className="btn-cta w-full py-3.5 rounded-xl font-semibold disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
       >
         {isLoading ? (
           <>

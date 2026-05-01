@@ -15,22 +15,20 @@ export function PageTransition({ children }: { children: ReactNode }) {
     const el = ref.current;
     if (!el) return;
 
-    // instant hide, then animate in
+    // instant hide, then fade in — no translateY to avoid content jump
     el.style.transition = "none";
     el.style.opacity = "0";
-    el.style.transform = "translateY(10px)";
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        el.style.transition = "opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1)";
+        el.style.transition = "opacity 0.28s cubic-bezier(0.16,1,0.3,1)";
         el.style.opacity = "1";
-        el.style.transform = "translateY(0)";
       });
     });
   }, [pathname]);
 
   return (
-    <div ref={ref} style={{ opacity: 1, transform: "translateY(0)" }}>
+    <div ref={ref} style={{ opacity: 1 }}>
       {children}
     </div>
   );

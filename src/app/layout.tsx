@@ -75,6 +75,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://fishopt.pro",
   },
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png" }],
+    shortcut: [{ url: "/logo.png" }],
+  },
 };
 
 export default function RootLayout({

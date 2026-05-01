@@ -474,6 +474,94 @@
 .shine-card:hover .s-line-3::before,
 .shine-card:hover .s-line-3::after { transition-delay: .3s; }
 
+/* ── Premium CTA Button (Разместить компанию) ────────────────────────────── */
+.btn-cta {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 60%, #2dd4bf 100%);
+  background-size: 200% 200%;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(3, 105, 161, 0.45), 0 1px 3px rgba(3, 105, 161, 0.2);
+}
+.btn-cta:hover {
+  background-position: right center;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(3, 105, 161, 0.55), 0 2px 6px rgba(3, 105, 161, 0.3);
+}
+.btn-cta:active {
+  transform: translateY(0) scale(0.99);
+}
+/* shimmer sweep */
+.btn-cta::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0s;
+}
+.btn-cta:hover::after {
+  left: 150%;
+  transition: left 0.55s ease;
+}
+
+/* header variant — compact */
+.btn-cta-sm {
+  padding: 8px 18px;
+  font-size: 13.5px;
+  border-radius: 10px;
+}
+/* section variant — large */
+.btn-cta-lg {
+  padding: 16px 36px;
+  font-size: 16px;
+  border-radius: 14px;
+  letter-spacing: 0.01em;
+}
+
+/* ── Auth page animated background ──────────────────────────────────────── */
+@keyframes auth-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(40px, -60px) scale(1.08); }
+  66%  { transform: translate(-30px, 30px) scale(0.95); }
+}
+@keyframes auth-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-50px, 40px) scale(1.05); }
+  66%  { transform: translate(35px, -25px) scale(0.98); }
+}
+@keyframes auth-orb-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(20px, 50px) scale(1.1); }
+}
+.auth-orb-1 { animation: auth-orb-1 16s ease-in-out infinite; }
+.auth-orb-2 { animation: auth-orb-2 20s ease-in-out infinite; }
+.auth-orb-3 { animation: auth-orb-3 13s ease-in-out infinite; }
+
+/* Card entrance */
+@keyframes auth-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.auth-card-in {
+  animation: auth-card-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Input focus glow */
+.auth-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.auth-input:focus {
+  border-color: #0369a1;
+  box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15);
+  outline: none;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
