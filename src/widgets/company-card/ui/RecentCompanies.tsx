@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
 import { TiltCard } from "@/shared/ui/TiltCard";
-import { PremiumButton } from "@/shared/ui/PremiumButton";
+import { CTAButton } from "@/shared/ui/CTAButton";
 
 export async function RecentCompanies() {
   const result = await apiGetCompanies({ limit: 6 }).catch(() => ({ data: [] }));
@@ -44,7 +44,7 @@ export async function RecentCompanies() {
         </div>
 
         <div className="mt-10 hidden sm:flex justify-center">
-          <PremiumButton href="/register" label="Разместить свою компанию бесплатно" size="lg" />
+          <CTAButton href="/register" label="Разместить свою компанию бесплатно" />
         </div>
       </div>
     </section>
