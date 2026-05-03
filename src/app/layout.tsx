@@ -90,6 +90,15 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
+        <svg xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7" result="goo" />
+              <feBlend in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+          </defs>
+        </svg>
         <PageTransition>{children}</PageTransition>
       </body>
     </html>

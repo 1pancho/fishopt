@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { siteConfig } from "@/shared/config/site";
-import { PremiumButton } from "@/shared/ui/PremiumButton";
+import { BlobButton } from "@/shared/ui/BlobButton";
 
 const navLinks = [
   { href: "/companies", label: "Компании" },
@@ -88,7 +88,7 @@ export function Header() {
                 >
                   Войти
                 </Link>
-                <PremiumButton href="/register" label="Разместить компанию" size="sm" />
+                <BlobButton href="/register" label="Разместить компанию" />
               </>
             )}
           </div>
@@ -155,7 +155,7 @@ export function Header() {
                   >
                     Войти
                   </Link>
-                  <PremiumButton href="/register" label="Разместить компанию" className="w-full py-3 text-sm" />
+                  <BlobButton href="/register" label="Разместить компанию" className="w-full" />
                 </>
               )}
             </div>
