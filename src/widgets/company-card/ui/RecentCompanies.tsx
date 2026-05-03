@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
 import { TiltCard } from "@/shared/ui/TiltCard";
-import { CTAButton } from "@/shared/ui/CTAButton";
+import { BlobButton } from "@/shared/ui/BlobButton";
 
 export async function RecentCompanies() {
   const result = await apiGetCompanies({ limit: 6 }).catch(() => ({ data: [] }));
@@ -43,8 +43,15 @@ export async function RecentCompanies() {
           </Link>
         </div>
 
-        <div className="mt-10 hidden sm:flex justify-center">
-          <CTAButton href="/register" label="Разместить свою компанию бесплатно" />
+        {/* CTA banner */}
+        <div className="mt-10 hidden sm:flex items-center justify-between gap-6 rounded-xl border border-[#0369a1]/20 bg-gradient-to-r from-sky-50 to-blue-50 px-8 py-6">
+          <div>
+            <p className="text-lg font-bold text-[#0c4a6e]">Разместите компанию бесплатно</p>
+            <p className="text-sm text-[#0369a1]/80 mt-1">
+              Тысячи покупателей ищут поставщиков прямо сейчас — присоединяйтесь
+            </p>
+          </div>
+          <BlobButton href="/register" label="Разместить бесплатно" className="blob-btn-lg shrink-0" />
         </div>
       </div>
     </section>

@@ -916,6 +916,11 @@
   }
 }
 
+.blob-btn-lg {
+  padding: 13px 38px;
+  font-size: 13px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

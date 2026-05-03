@@ -7,7 +7,7 @@ import { CompanyFilters, MobileFiltersDrawer } from "@/widgets/catalog-filters";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
 import { FISH_CATEGORIES } from "@/shared/config/site";
-import { PremiumButton } from "@/shared/ui/PremiumButton";
+import { BlobButton } from "@/shared/ui/BlobButton";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -141,7 +141,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   <p className="text-muted-foreground text-sm max-w-sm mx-auto mb-6">
                     Вы поставляете {cat.label.toLowerCase()}? Разместите свою компанию бесплатно.
                   </p>
-                  <PremiumButton href="/register" label="Разместить компанию" />
+                  <BlobButton href="/register" label="Разместить компанию" />
                 </div>
               )}
             </div>
