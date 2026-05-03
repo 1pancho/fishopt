@@ -35,7 +35,8 @@ test.describe("Страница входа (/login)", () => {
   });
 
   test("ссылка 'Зарегистрироваться' ведет на /register", async ({ page }) => {
-    await page.getByRole("link", { name: /зарегистрироваться/i }).click();
+    // Текст ссылки может быть "Зарегистрироваться" или "Зарегистрируйтесь бесплатно"
+    await page.getByRole("link", { name: /зарегистр/i }).click();
     await expect(page).toHaveURL(/\/register/);
   });
 
