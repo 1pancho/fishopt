@@ -7,9 +7,10 @@ const topRegions = REGIONS.slice(0, 6);
 
 export function Footer() {
   return (
-    <footer className="bg-[#0c4a6e] text-white mt-auto">
+    <footer className="bg-[#0c4a6e] text-white mt-auto relative overflow-hidden">
+      <div className="footer-bubbles" aria-hidden="true" />
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
@@ -97,7 +98,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
+      <div className="relative z-[1] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-white/40 text-xs">
             © {new Date().getFullYear()} Fishopt. Все права защищены.

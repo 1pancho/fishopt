@@ -623,6 +623,45 @@
   outline: none;
 }
 
+/* ===================== Footer bubbles ===================== */
+.footer-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.footer-bubbles::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 300%;
+  background:
+    radial-gradient(circle at  5% 30%, transparent 0, transparent 3px, rgba(255,255,255,0.18) 4px, rgba(255,255,255,0.18) 6px, transparent 7px),
+    radial-gradient(circle at 12% 72%, transparent 0, transparent 2px, rgba(255,255,255,0.12) 3px, rgba(255,255,255,0.12) 5px, transparent 6px),
+    radial-gradient(circle at 20% 15%, transparent 0, transparent 4px, rgba(255,255,255,0.10) 5px, rgba(255,255,255,0.10) 7px, transparent 8px),
+    radial-gradient(circle at 28% 55%, transparent 0, transparent 2px, rgba(255,255,255,0.14) 3px, rgba(255,255,255,0.14) 4px, transparent 5px),
+    radial-gradient(circle at 35% 82%, transparent 0, transparent 3px, rgba(255,255,255,0.09) 4px, rgba(255,255,255,0.09) 6px, transparent 7px),
+    radial-gradient(circle at 42% 40%, transparent 0, transparent 2px, rgba(255,255,255,0.16) 3px, rgba(255,255,255,0.16) 5px, transparent 6px),
+    radial-gradient(circle at 50% 65%, transparent 0, transparent 3px, rgba(255,255,255,0.11) 4px, rgba(255,255,255,0.11) 6px, transparent 7px),
+    radial-gradient(circle at 58% 22%, transparent 0, transparent 2px, rgba(255,255,255,0.15) 3px, rgba(255,255,255,0.15) 5px, transparent 6px),
+    radial-gradient(circle at 65% 78%, transparent 0, transparent 4px, rgba(255,255,255,0.08) 5px, rgba(255,255,255,0.08) 7px, transparent 8px),
+    radial-gradient(circle at 72% 45%, transparent 0, transparent 2px, rgba(255,255,255,0.13) 3px, rgba(255,255,255,0.13) 4px, transparent 5px),
+    radial-gradient(circle at 80% 10%, transparent 0, transparent 3px, rgba(255,255,255,0.17) 4px, rgba(255,255,255,0.17) 6px, transparent 7px),
+    radial-gradient(circle at 87% 60%, transparent 0, transparent 2px, rgba(255,255,255,0.12) 3px, rgba(255,255,255,0.12) 5px, transparent 6px),
+    radial-gradient(circle at 93% 35%, transparent 0, transparent 3px, rgba(255,255,255,0.10) 4px, rgba(255,255,255,0.10) 6px, transparent 7px),
+    radial-gradient(circle at 97% 85%, transparent 0, transparent 2px, rgba(255,255,255,0.14) 3px, rgba(255,255,255,0.14) 4px, transparent 5px);
+  animation: footer-bubbles 18s linear infinite;
+}
+
+@keyframes footer-bubbles {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-66.666%); }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
