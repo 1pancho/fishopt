@@ -15,7 +15,7 @@ test.describe("Главная страница", () => {
 
   test("хедер — десктоп навигация (hidden md:flex)", async ({ page }) => {
     // Ждём гидрации клиентского Header
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("domcontentloaded");
     const nav = page.locator("nav[aria-label='Основная навигация']");
     await expect(nav).toBeAttached({ timeout: 10_000 });
     const count = await nav.locator("a").count();
@@ -82,7 +82,7 @@ test.describe("Мобильная версия — главная", () => {
 
   test("мобильное меню открывается и содержит навигацию", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("domcontentloaded");
     const btn = page.getByLabel("Открыть меню");
     await expect(btn).toBeVisible({ timeout: 10_000 });
     await btn.click();

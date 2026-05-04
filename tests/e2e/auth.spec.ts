@@ -3,8 +3,9 @@ import { test, expect } from "@playwright/test";
 test.describe("Страница входа (/login)", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/login");
+    await page.waitForLoadState("domcontentloaded");
     // Ждём гидрации клиентского LoginForm
-    await page.waitForLoadState("networkidle");
+    await page.locator("#email").waitFor({ state: "visible", timeout: 15_000 });
   });
 
   test("страница загружается с заголовком 'Вход'", async ({ page }) => {
@@ -68,6 +69,9 @@ test.describe("Страница входа (/login)", () => {
 test.describe("Страница регистрации (/register)", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/register");
+    await page.waitForLoadState("domcontentloaded");
+    // Ждём гидрации RegistrationForm
+    await page.locator("#name").waitFor({ state: "visible", timeout: 15_000 });
   });
 
   test("страница загружается", async ({ page }) => {
