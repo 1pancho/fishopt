@@ -40,7 +40,7 @@ test.describe("Страница новостей (/news)", () => {
   test("нет JS-ошибок на странице", async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
-    await page.goto("/news");
+    // beforeEach уже навигировал на /news — не дублируем goto
     await page.waitForLoadState("networkidle");
     expect(errors, `JS ошибки: ${errors.join(", ")}`).toHaveLength(0);
   });

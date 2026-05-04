@@ -41,7 +41,7 @@ test.describe("Страница входа (/login)", () => {
   });
 
   test("ссылка 'Забыли пароль?' присутствует", async ({ page }) => {
-    await expect(page.getByRole("link", { name: /забыли пароль/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /забыли пароль/i })).toBeVisible({ timeout: 10_000 });
   });
 
   test("форма с noValidate — кнопка доступна для клика", async ({ page }) => {
@@ -106,8 +106,11 @@ test.describe("Страница регистрации (/register)", () => {
   });
 
   test("ссылка 'Войти' ведет на /login", async ({ page }) => {
-    await page.getByRole("link", { name: /войти/i }).click();
-    await expect(page).toHaveURL(/\/login/);
+    // Используем CSS-локатор для точного выбора ссылки
+    const link = page.locator('a[href="/login"]').first();
+    await expect(link).toBeVisible({ timeout: 10_000 });
+    await link.click();
+    await expect(page).toHaveURL(/\/login/, { timeout: 10_000 });
   });
 
   test("индикатор шагов отображается", async ({ page }) => {

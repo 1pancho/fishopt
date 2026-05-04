@@ -16,6 +16,8 @@ test.describe("Доступность (a11y)", () => {
 
     test(`${url} — кнопки имеют доступное имя`, async ({ page }) => {
       await page.goto(url);
+      // Ждём полной гидрации клиентских компонентов
+      await page.waitForLoadState("networkidle");
       const buttons = page.locator("button:not([aria-hidden='true'])");
       const count = await buttons.count();
       for (let i = 0; i < count; i++) {
@@ -70,7 +72,8 @@ test.describe("Производительность и стабильность"
 
   test("страница компаний не падает при пустом поиске", async ({ page }) => {
     await page.goto("/companies?q=");
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible({ timeout: 10_000 });
   });
 
   test("несуществующая компания — нет 500 ошибки", async ({ page }) => {

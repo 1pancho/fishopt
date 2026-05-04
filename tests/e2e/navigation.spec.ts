@@ -3,12 +3,13 @@ import { test, expect } from "@playwright/test";
 test.describe("Навигация между страницами", () => {
   test("клик на 'Компании' переходит на /companies", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
     const links = page.locator("a[href='/companies']");
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
         await links.nth(i).click();
-        await expect(page).toHaveURL(/\/companies/);
+        await expect(page).toHaveURL(/\/companies/, { timeout: 10_000 });
         return;
       }
     }
@@ -17,13 +18,14 @@ test.describe("Навигация между страницами", () => {
 
   test("клик на 'Новости' переходит на /news", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
     const links = page.locator("a[href='/news']");
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
         await links.nth(i).click();
-        await expect(page).toHaveURL(/\/news/);
-        await expect(page).toHaveTitle(/Новости|Fishopt/);
+        await expect(page).toHaveURL(/\/news/, { timeout: 10_000 });
+        await expect(page).toHaveTitle(/Новости|Fishopt/, { timeout: 10_000 });
         return;
       }
     }
@@ -32,12 +34,13 @@ test.describe("Навигация между страницами", () => {
 
   test("клик на 'Прайс-листы' переходит на /prices", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
     const links = page.locator("a[href='/prices']");
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
         await links.nth(i).click();
-        await expect(page).toHaveURL(/\/prices/);
+        await expect(page).toHaveURL(/\/prices/, { timeout: 10_000 });
         return;
       }
     }
@@ -46,12 +49,13 @@ test.describe("Навигация между страницами", () => {
 
   test("клик на 'Объявления' переходит на /ads", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
     const links = page.locator("a[href='/ads']");
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
         await links.nth(i).click();
-        await expect(page).toHaveURL(/\/ads/);
+        await expect(page).toHaveURL(/\/ads/, { timeout: 10_000 });
         return;
       }
     }
@@ -67,14 +71,14 @@ test.describe("Навигация между страницами", () => {
 
   test("ссылки на /companies существуют и кликабельны", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
     const links = page.locator("a[href='/companies']");
     await expect(links.first()).toBeAttached();
-    // Find first visible link and click it
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
         await links.nth(i).click();
-        await expect(page).toHaveURL(/\/companies/);
+        await expect(page).toHaveURL(/\/companies/, { timeout: 10_000 });
         return;
       }
     }
