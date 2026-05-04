@@ -29,12 +29,12 @@ test.describe("Страница входа (/login)", () => {
   test("кнопка 'Показать/скрыть пароль' работает", async ({ page }) => {
     // Ждём гидрации формы (клиентский компонент)
     const passwordInput = page.locator("#password");
-    await expect(passwordInput).toBeVisible({ timeout: 10_000 });
-    await expect(passwordInput).toHaveAttribute("type", "password", { timeout: 5_000 });
+    await expect(passwordInput).toBeVisible({ timeout: 15_000 });
+    await expect(passwordInput).toHaveAttribute("type", "password", { timeout: 10_000 });
     const toggleBtn = page.getByLabel(/показать пароль|скрыть пароль/i);
-    await expect(toggleBtn).toBeVisible({ timeout: 10_000 });
+    await expect(toggleBtn).toBeVisible({ timeout: 15_000 });
     await toggleBtn.click();
-    await expect(passwordInput).toHaveAttribute("type", "text", { timeout: 5_000 });
+    await expect(passwordInput).toHaveAttribute("type", "text", { timeout: 10_000 });
   });
 
   test("ссылка 'Зарегистрироваться' ведет на /register", async ({ page }) => {

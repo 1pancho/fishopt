@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Страница компаний", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/companies");
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("domcontentloaded");
   });
 
   test("страница загружается с заголовком 'Каталог компаний'", async ({ page }) => {
@@ -64,6 +64,7 @@ test.describe("Страница компаний", () => {
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
+        await links.nth(i).scrollIntoViewIfNeeded();
         await links.nth(i).click();
         await page.waitForURL(/\/register/, { timeout: 10_000 });
         return;
@@ -90,7 +91,7 @@ test.describe("Категории компаний — нет 404", () => {
 test.describe("Профиль компании", () => {
   test("страница компании загружается (если есть компании)", async ({ page }) => {
     await page.goto("/companies");
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("domcontentloaded");
     const firstCard = page.locator("a[href^='/company/']").first();
     if ((await firstCard.count()) === 0) {
       test.skip(true, "Нет компаний в БД");

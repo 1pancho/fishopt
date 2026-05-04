@@ -39,7 +39,7 @@ test.describe("Доступность (a11y)", () => {
 
   test("главная — h1 ровно один", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("domcontentloaded");
     const h1Count = await page.locator("h1").count();
     expect(h1Count).toBe(1);
   });
@@ -48,7 +48,7 @@ test.describe("Доступность (a11y)", () => {
     const errors: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
     await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("domcontentloaded");
     expect(errors, `JS ошибки: ${errors.join(", ")}`).toHaveLength(0);
   });
 

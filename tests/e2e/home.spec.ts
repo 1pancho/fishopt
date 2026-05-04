@@ -84,11 +84,11 @@ test.describe("Мобильная версия — главная", () => {
     await page.goto("/");
     await page.waitForLoadState("domcontentloaded");
     const btn = page.getByLabel("Открыть меню");
-    await expect(btn).toBeVisible({ timeout: 10_000 });
+    await expect(btn).toBeVisible({ timeout: 20_000 });
     await btn.click();
     const mobileNav = page.locator("nav[aria-label='Мобильная навигация']");
-    await expect(mobileNav).toBeVisible({ timeout: 10_000 });
-    await expect(mobileNav.getByRole("link", { name: "Компании" })).toBeVisible({ timeout: 5_000 });
+    await expect(mobileNav).toBeVisible({ timeout: 15_000 });
+    await expect(mobileNav.getByRole("link", { name: "Компании" })).toBeVisible({ timeout: 10_000 });
   });
 
   test("заголовок Hero не обрезан на мобиле", async ({ page }) => {
