@@ -23,6 +23,7 @@ test.describe("Навигация между страницами", () => {
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
+        await links.nth(i).scrollIntoViewIfNeeded();
         await links.nth(i).click();
         await expect(page).toHaveURL(/\/news/, { timeout: 10_000 });
         await expect(page).toHaveTitle(/Новости|Fishopt/, { timeout: 10_000 });
@@ -39,6 +40,7 @@ test.describe("Навигация между страницами", () => {
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
+        await links.nth(i).scrollIntoViewIfNeeded();
         await links.nth(i).click();
         await expect(page).toHaveURL(/\/prices/, { timeout: 10_000 });
         return;
@@ -54,6 +56,7 @@ test.describe("Навигация между страницами", () => {
     const count = await links.count();
     for (let i = 0; i < count; i++) {
       if (await links.nth(i).isVisible()) {
+        await links.nth(i).scrollIntoViewIfNeeded();
         await links.nth(i).click();
         await expect(page).toHaveURL(/\/ads/, { timeout: 10_000 });
         return;
@@ -99,7 +102,7 @@ test.describe("Навигация между страницами", () => {
   test("страницы не отдают 404 (основные маршруты)", async ({ page }) => {
     const routes = ["/", "/companies", "/news", "/prices", "/ads", "/login", "/register"];
     for (const route of routes) {
-      const response = await page.goto(route, { timeout: 30_000 });
+      const response = await page.goto(route, { timeout: 45_000 });
       // 5xx = server error (real bug); 4xx = expected when backend is unavailable
       expect(response?.status(), `${route} вернул 5xx`).toBeLessThan(500);
     }

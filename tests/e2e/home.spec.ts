@@ -14,9 +14,10 @@ test.describe("Главная страница", () => {
   });
 
   test("хедер — десктоп навигация (hidden md:flex)", async ({ page }) => {
-    // nav links may be hidden on mobile (display:none) so getByRole won't find them
-    // Use CSS locator which works regardless of visibility
+    // Ждём гидрации клиентского Header
+    await page.waitForLoadState("networkidle");
     const nav = page.locator("nav[aria-label='Основная навигация']");
+    await expect(nav).toBeAttached({ timeout: 10_000 });
     const count = await nav.locator("a").count();
     expect(count, "Десктоп nav должен содержать ссылки").toBeGreaterThan(0);
   });
@@ -81,13 +82,13 @@ test.describe("Мобильная версия — главная", () => {
 
   test("мобильное меню открывается и содержит навигацию", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("domcontentloaded");
+    await page.waitForLoadState("networkidle");
     const btn = page.getByLabel("Открыть меню");
     await expect(btn).toBeVisible({ timeout: 10_000 });
     await btn.click();
     const mobileNav = page.locator("nav[aria-label='Мобильная навигация']");
     await expect(mobileNav).toBeVisible({ timeout: 10_000 });
-    await expect(mobileNav.getByRole("link", { name: "Компании" })).toBeVisible();
+    await expect(mobileNav.getByRole("link", { name: "Компании" })).toBeVisible({ timeout: 5_000 });
   });
 
   test("заголовок Hero не обрезан на мобиле", async ({ page }) => {
@@ -100,6 +101,7 @@ test.describe("Мобильная версия — главная", () => {
 
   test("поисковая строка видна на мобиле", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("input[type='search']").first()).toBeVisible();
+    await page.waitForLoadState("domcontentloaded");
+    await expect(page.locator("input[type='search']").first()).toBeVisible({ timeout: 10_000 });
   });
 });

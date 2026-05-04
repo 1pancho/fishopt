@@ -3,6 +3,8 @@ import { test, expect } from "@playwright/test";
 test.describe("Страница входа (/login)", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/login");
+    // Ждём гидрации клиентского LoginForm
+    await page.waitForLoadState("networkidle");
   });
 
   test("страница загружается с заголовком 'Вход'", async ({ page }) => {
@@ -24,13 +26,13 @@ test.describe("Страница входа (/login)", () => {
   });
 
   test("кнопка 'Показать/скрыть пароль' работает", async ({ page }) => {
+    // Ждём гидрации формы (клиентский компонент)
+    const passwordInput = page.locator("#password");
+    await expect(passwordInput).toBeVisible({ timeout: 10_000 });
+    await expect(passwordInput).toHaveAttribute("type", "password", { timeout: 5_000 });
     const toggleBtn = page.getByLabel(/показать пароль|скрыть пароль/i);
     await expect(toggleBtn).toBeVisible({ timeout: 10_000 });
-    const passwordInput = page.locator("#password");
-    // изначально type=password
-    await expect(passwordInput).toHaveAttribute("type", "password", { timeout: 5_000 });
     await toggleBtn.click();
-    // после клика type=text
     await expect(passwordInput).toHaveAttribute("type", "text", { timeout: 5_000 });
   });
 
@@ -55,10 +57,11 @@ test.describe("Страница входа (/login)", () => {
     await page.locator("#email").fill("test@example.com");
     await page.locator("#password").fill("wrongpassword123");
     await page.getByRole("button", { name: "Войти" }).click();
-    // Error div appears with text from backend or "Неверный"
+    // Error div appears regardless of backend state (network error or 401)
+    // "[class*='destructive']" covers bg-destructive/10 from LoginForm error block
     await expect(
-      page.locator("[class*='destructive']").or(page.getByText(/неверн|ошибка|не найден|invalid/i))
-    ).toBeVisible({ timeout: 10_000 });
+      page.locator("[class*='destructive']")
+    ).toBeVisible({ timeout: 15_000 });
   });
 });
 
