@@ -17,7 +17,8 @@ test.describe("Доступность (a11y)", () => {
     test(`${url} — кнопки имеют доступное имя`, async ({ page }) => {
       await page.goto(url);
       await page.waitForLoadState("domcontentloaded");
-      const buttons = page.locator("button:not([aria-hidden='true'])");
+      // Only check visible buttons — hidden ones are not reachable by screen readers anyway
+      const buttons = page.locator("button:not([aria-hidden='true']):visible");
       const count = await buttons.count();
       for (let i = 0; i < count; i++) {
         const btn = buttons.nth(i);
