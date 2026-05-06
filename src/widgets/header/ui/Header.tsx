@@ -9,7 +9,7 @@ import { BlobButton } from "@/shared/ui/BlobButton";
 
 const ANNOUNCE_KEY = "fishopt_announce_v1";
 
-function AnnouncementBar() {
+function AnnouncementStrip() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -20,40 +20,32 @@ function AnnouncementBar() {
 
   if (!visible) return null;
 
-  const dismiss = () => {
+  const dismiss = (e: React.MouseEvent) => {
+    e.preventDefault();
     try { localStorage.setItem(ANNOUNCE_KEY, "1"); } catch { /* ignore */ }
     setVisible(false);
   };
 
   return (
-    <div className="bg-amber-50 border-b border-amber-200 text-amber-900 py-2 px-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 flex-1 min-w-0 text-sm">
-          <span aria-hidden="true" className="shrink-0">🎉</span>
-          <p className="leading-snug">
-            <strong>Сейчас бесплатно</strong>
-            <span className="hidden sm:inline"> — в конце года сервис станет платным.</span>
-            {" "}
-            <Link href="/support" className="underline underline-offset-2 font-semibold hover:text-amber-700 transition-colors">
-              Стать спонсором
-            </Link>
-            <span className="hidden sm:inline"> — и пользуйтесь бесплатно навсегда.</span>
-          </p>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <Link
-            href="/support"
-            className="hidden sm:inline-flex items-center px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold hover:bg-amber-600 transition-colors whitespace-nowrap"
-          >
-            Стать спонсором
-          </Link>
+    <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-8 gap-4">
+        <div className="flex-1" />
+        <Link
+          href="/support"
+          className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap hover:underline underline-offset-2 transition-all"
+        >
+          <span aria-hidden="true">🎉</span>
+          <span>Сейчас бесплатно — станьте спонсором и сохраните доступ навсегда</span>
+          <span aria-hidden="true" className="hidden sm:inline opacity-70">→</span>
+        </Link>
+        <div className="flex-1 flex justify-end">
           <button
             type="button"
             onClick={dismiss}
             aria-label="Закрыть"
-            className="p-1.5 rounded text-amber-600 hover:text-amber-900 hover:bg-amber-100 transition-colors"
+            className="p-1 rounded opacity-70 hover:opacity-100 transition-opacity"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -87,7 +79,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
-      <AnnouncementBar />
+      <AnnouncementStrip />
       <div className="border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-16">
