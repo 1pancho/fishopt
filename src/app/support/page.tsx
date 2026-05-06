@@ -16,32 +16,37 @@ const TIERS = [
     amountSub: "от 500 ₽",
     label: "Спонсор",
     badge: "🤝",
+    highlight: null,
     perks: [
       "Статус «Спонсор» в профиле",
-      "Бесплатный доступ до конца 2026 года",
       "Ранний доступ к новым функциям",
+      "Участие в закрытом чате сообщества",
     ],
+    cta: "Стать спонсором",
     featured: false,
   },
   {
     amountLabel: "30 000 ₽",
     amountSub: "единовременно",
-    label: "Early Bird",
+    label: "Основатель",
     badge: "⭐",
+    highlight: "−50% навсегда",
     perks: [
-      "Статус «Early Bird» в профиле",
-      "Бесплатный доступ навсегда",
+      "Статус «Основатель» в профиле",
+      "Скидка 50% на платный план — навсегда",
       "Ранний доступ к новым функциям",
       "Влияние на развитие сервиса",
       "Логотип на странице спонсоров",
     ],
+    cta: "Стать основателем",
     featured: true,
   },
   {
-    amountLabel: "60 000 ₽",
+    amountLabel: "от 100 000 ₽",
     amountSub: "единовременно",
     label: "Партнёр",
     badge: "🚀",
+    highlight: "Бесплатно навсегда",
     perks: [
       "Статус «Партнёр» в профиле",
       "Бесплатный доступ навсегда",
@@ -50,6 +55,7 @@ const TIERS = [
       "Логотип + ссылка в разделе «Партнёры»",
       "Упоминание в рассылке и соцсетях",
     ],
+    cta: "Стать партнёром",
     featured: false,
   },
 ];
@@ -65,7 +71,7 @@ const FAQ = [
   },
   {
     q: "Какими будут тарифы для остальных?",
-    a: "Пока мы прорабатываем тарифную сетку. Ориентировочно: от 990₽/мес за базовый доступ. Основатели и партнёры не платят никогда.",
+    a: "Пока мы прорабатываем тарифную сетку. Ориентировочно: от 990₽/мес за базовый доступ. Партнёры не платят никогда, Основатели платят 50% от тарифа навсегда.",
   },
   {
     q: "Можно ли получить возврат?",
@@ -171,7 +177,7 @@ export default function SupportPage() {
               Уровни поддержки
             </h2>
             <p className="text-center text-muted-foreground text-sm mb-10">
-              Любой взнос даёт статус спонсора и бесплатный доступ
+              Спонсор — любая сумма · Основатель — −50% навсегда · Партнёр — бесплатно навсегда
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {TIERS.map((tier) => (
@@ -192,6 +198,15 @@ export default function SupportPage() {
                   <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
                     {tier.label}
                   </p>
+                  {tier.highlight && (
+                    <div className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold mb-3 ${
+                      tier.label === "Партнёр"
+                        ? "bg-emerald-100 text-emerald-700"
+                        : "bg-amber-100 text-amber-700"
+                    }`}>
+                      {tier.highlight}
+                    </div>
+                  )}
                   <div className="mb-5">
                     <span className="text-3xl font-extrabold text-foreground">{tier.amountLabel}</span>
                     <p className="text-xs text-muted-foreground mt-0.5">{tier.amountSub}</p>
@@ -216,7 +231,7 @@ export default function SupportPage() {
                         : "bg-muted hover:bg-muted/70 text-foreground border border-border"
                     }`}
                   >
-                    Стать {tier.label === "Спонсор" ? "спонсором" : tier.label === "Early Bird" ? "Early Bird" : "партнёром"}
+                    {tier.cta}
                   </a>
                 </div>
               ))}
