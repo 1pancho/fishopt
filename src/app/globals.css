@@ -921,6 +921,24 @@
   font-size: 13px;
 }
 
+/* Tier cards — support page */
+@keyframes tier-shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+@keyframes tier-badge-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+.tier-shimmer {
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: tier-shimmer 3s ease-in-out infinite;
+}
+.tier-badge-float {
+  animation: tier-badge-float 3s ease-in-out infinite;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
