@@ -182,7 +182,7 @@ export default function SupportPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {TIERS.map((tier) => (
                 <div
-                  key={tier.amount}
+                  key={tier.label}
                   className={`relative flex flex-col rounded-2xl border p-6 ${
                     tier.featured
                       ? "border-amber-400 bg-white shadow-xl shadow-amber-100 scale-[1.02]"
