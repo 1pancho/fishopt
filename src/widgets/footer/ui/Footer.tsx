@@ -108,7 +108,7 @@ export function Footer() {
             href="/support"
             className="shrink-0 px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
           >
-            Стать основателем →
+            Стать спонсором →
           </Link>
         </div>
       </div>

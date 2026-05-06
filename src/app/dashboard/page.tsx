@@ -75,7 +75,7 @@ export default function DashboardPage() {
           </div>
         </div>
         <span className="shrink-0 text-xs font-bold text-amber-700 bg-amber-200 group-hover:bg-amber-300 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
-          Стать основателем →
+          Стать спонсором →
         </span>
       </Link>
 

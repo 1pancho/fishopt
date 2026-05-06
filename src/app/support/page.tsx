@@ -12,30 +12,34 @@ export const metadata: Metadata = {
 
 const TIERS = [
   {
-    amount: 500,
-    label: "Сторонник",
+    amountLabel: "Любая сумма",
+    amountSub: "от 500 ₽",
+    label: "Спонсор",
     badge: "🤝",
     perks: [
-      "Статус «Сторонник» в профиле",
+      "Статус «Спонсор» в профиле",
       "Бесплатный доступ до конца 2026 года",
       "Ранний доступ к новым функциям",
     ],
     featured: false,
   },
   {
-    amount: 2000,
-    label: "Основатель",
+    amountLabel: "30 000 ₽",
+    amountSub: "единовременно",
+    label: "Early Bird",
     badge: "⭐",
     perks: [
-      "Статус «Основатель» в профиле",
+      "Статус «Early Bird» в профиле",
       "Бесплатный доступ навсегда",
       "Ранний доступ к новым функциям",
       "Влияние на развитие сервиса",
+      "Логотип на странице спонсоров",
     ],
     featured: true,
   },
   {
-    amount: 5000,
+    amountLabel: "60 000 ₽",
+    amountSub: "единовременно",
     label: "Партнёр",
     badge: "🚀",
     perks: [
@@ -43,7 +47,8 @@ const TIERS = [
       "Бесплатный доступ навсегда",
       "Ранний доступ к новым функциям",
       "Влияние на развитие сервиса",
-      "Упоминание в разделе «Партнёры»",
+      "Логотип + ссылка в разделе «Партнёры»",
+      "Упоминание в рассылке и соцсетях",
     ],
     featured: false,
   },
@@ -81,7 +86,7 @@ export default function SupportPage() {
               Бесплатно ещё ~6 месяцев
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-5 leading-tight">
-              Станьте основателем{" "}
+              Станьте спонсором{" "}
               <span className="text-amber-500">Fishopt</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
@@ -127,14 +132,14 @@ export default function SupportPage() {
                     step: siteConfig.paidLaunchDate,
                     icon: "🔔",
                     title: "Введём тарифы",
-                    desc: "Новые пользователи перейдут на платный план. Основатели остаются бесплатными.",
+                    desc: "Новые пользователи перейдут на платный план. Спонсоры остаются бесплатными.",
                     color: "border-amber-200 bg-amber-50",
                     badge: "bg-amber-100 text-amber-700",
                   },
                   {
                     step: "Навсегда",
                     icon: "⭐",
-                    title: "Основатели — бесплатно",
+                    title: "Спонсоры — бесплатно",
                     desc: "Те, кто поддержал нас сейчас, никогда не платят — независимо от наших тарифов.",
                     color: "border-primary/20 bg-primary/5",
                     badge: "bg-primary/10 text-primary",
@@ -166,7 +171,7 @@ export default function SupportPage() {
               Уровни поддержки
             </h2>
             <p className="text-center text-muted-foreground text-sm mb-10">
-              Выберите любую сумму — даже минимальный взнос даёт статус основателя
+              Любой взнос даёт статус спонсора и бесплатный доступ
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {TIERS.map((tier) => (
@@ -187,12 +192,9 @@ export default function SupportPage() {
                   <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
                     {tier.label}
                   </p>
-                  <div className="flex items-baseline gap-1 mb-5">
-                    <span className="text-3xl font-extrabold text-foreground">
-                      {tier.amount.toLocaleString("ru-RU")}
-                    </span>
-                    <span className="text-muted-foreground font-medium">₽</span>
-                    <span className="text-xs text-muted-foreground ml-1">единовременно</span>
+                  <div className="mb-5">
+                    <span className="text-3xl font-extrabold text-foreground">{tier.amountLabel}</span>
+                    <p className="text-xs text-muted-foreground mt-0.5">{tier.amountSub}</p>
                   </div>
                   <ul className="flex flex-col gap-2.5 mb-6 flex-1">
                     {tier.perks.map((perk) => (
@@ -214,7 +216,7 @@ export default function SupportPage() {
                         : "bg-muted hover:bg-muted/70 text-foreground border border-border"
                     }`}
                   >
-                    Поддержать на {tier.amount.toLocaleString("ru-RU")} ₽
+                    Стать {tier.label === "Спонсор" ? "спонсором" : tier.label === "Early Bird" ? "Early Bird" : "партнёром"}
                   </a>
                 </div>
               ))}
@@ -304,7 +306,7 @@ export default function SupportPage() {
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-amber-500 hover:bg-amber-400 text-white font-bold text-lg transition-colors"
             >
               <span aria-hidden="true">⭐</span>
-              Стать основателем
+              Стать спонсором
             </a>
             <p className="text-white/40 text-xs mt-4">
               Вопросы:{" "}

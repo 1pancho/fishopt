@@ -50,7 +50,7 @@ export default function HomePage() {
                 Сейчас бесплатно — в конце года станет платным
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">
-                Станьте основателем{" "}
+                Станьте спонсором{" "}
                 <span className="text-amber-400">Fishopt</span>
               </h2>
               <p className="text-white/70 text-lg mb-8 leading-relaxed">
@@ -75,7 +75,7 @@ export default function HomePage() {
                 </Link>
               </div>
               <p className="text-white/40 text-xs mt-6">
-                Основатели получают бесплатный доступ навсегда — независимо от будущих тарифов
+                Спонсоры получают бесплатный доступ навсегда — независимо от будущих тарифов
               </p>
             </div>
           </section>

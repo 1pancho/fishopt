@@ -7,6 +7,62 @@ import { useRouter } from "next/navigation";
 import { siteConfig } from "@/shared/config/site";
 import { BlobButton } from "@/shared/ui/BlobButton";
 
+const ANNOUNCE_KEY = "fishopt_announce_v1";
+
+function AnnouncementBar() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(ANNOUNCE_KEY)) setVisible(false);
+    } catch { /* ignore */ }
+  }, []);
+
+  if (!visible) return null;
+
+  const dismiss = () => {
+    try { localStorage.setItem(ANNOUNCE_KEY, "1"); } catch { /* ignore */ }
+    setVisible(false);
+  };
+
+  return (
+    <div className="bg-amber-50 border-b border-amber-200 text-amber-900 py-2 px-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 flex-1 min-w-0 text-sm">
+          <span aria-hidden="true" className="shrink-0">🎉</span>
+          <p className="leading-snug">
+            <strong>Сейчас бесплатно</strong>
+            <span className="hidden sm:inline"> — в конце года сервис станет платным.</span>
+            {" "}
+            <Link href="/support" className="underline underline-offset-2 font-semibold hover:text-amber-700 transition-colors">
+              Стать спонсором
+            </Link>
+            <span className="hidden sm:inline"> — и пользуйтесь бесплатно навсегда.</span>
+          </p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <Link
+            href="/support"
+            className="hidden sm:inline-flex items-center px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold hover:bg-amber-600 transition-colors whitespace-nowrap"
+          >
+            Стать спонсором
+          </Link>
+          <button
+            type="button"
+            onClick={dismiss}
+            aria-label="Закрыть"
+            className="p-1.5 rounded text-amber-600 hover:text-amber-900 hover:bg-amber-100 transition-colors"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const navLinks = [
   { href: "/companies", label: "Компании" },
   { href: "/prices", label: "Прайс-листы" },
@@ -30,7 +86,9 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-border shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+      <AnnouncementBar />
+      <div className="border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
@@ -112,6 +170,7 @@ export function Header() {
             )}
           </button>
         </div>
+      </div>
       </div>
 
       {/* Mobile menu */}
