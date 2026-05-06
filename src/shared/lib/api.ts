@@ -156,6 +156,36 @@ export async function apiGetCompany(slug: string) {
   });
 }
 
+export async function apiUploadLogo(token: string, file: File) {
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(`${API_BASE}/api/upload/logo`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: form,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: res.statusText }));
+    throw new Error(err.message ?? "Ошибка загрузки");
+  }
+  return res.json() as Promise<{ logoUrl: string }>;
+}
+
+export async function apiImportPrices(token: string, file: File) {
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(`${API_BASE}/api/upload/prices`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: form,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: res.statusText }));
+    throw new Error(err.message ?? "Ошибка импорта");
+  }
+  return res.json() as Promise<{ imported: number; message: string }>;
+}
+
 export function apiUpdateCompany(token: string, id: string, data: {
   name?: string;
   inn?: string;

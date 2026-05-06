@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "../_components/auth-provider";
-import { apiGetCompanyPrices, apiSaveMyPrices } from "@/shared/lib/api";
+import { apiGetCompanyPrices, apiSaveMyPrices, apiImportPrices } from "@/shared/lib/api";
 import { FISH_CATEGORIES, PROCESSING_TYPES } from "@/shared/config/site";
 
 type EditableItem = {
@@ -42,6 +42,9 @@ export default function DashboardPricesPage() {
   const [saved, setSaved] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState<NewItem>(emptyItem);
+  const [importing, setImporting] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
+  const [importSuccess, setImportSuccess] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user.company) { setLoading(false); return; }
@@ -74,6 +77,29 @@ export default function DashboardPricesPage() {
   const handleToggleStock = (id: string) =>
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, inStock: !i.inStock } : i)));
 
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImporting(true);
+    setImportError(null);
+    setImportSuccess(null);
+    try {
+      const res = await apiImportPrices(token, file);
+      setImportSuccess(res.message);
+      // Reload prices from backend
+      if (user.company) {
+        const pl = await apiGetCompanyPrices(user.company.slug);
+        if (pl) setItems(pl.items);
+      }
+      setTimeout(() => setImportSuccess(null), 4000);
+    } catch (err: any) {
+      setImportError(err.message ?? "Ошибка импорта");
+    } finally {
+      setImporting(false);
+      e.target.value = "";
+    }
+  };
+
   const handleSave = async () => {
     setSaving(true);
     try {
@@ -102,26 +128,56 @@ export default function DashboardPricesPage() {
 
   return (
     <div className="p-4 md:p-8 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Прайс-лист</h1>
           <p className="text-muted-foreground text-sm mt-1">
             Управляйте ценами — покупатели увидят их в реальном времени
           </p>
         </div>
-        <button
-          type="button"
-          onClick={handleSave}
-          disabled={saving}
-          className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ${
-            saved
-              ? "bg-emerald-500 text-white"
-              : "bg-primary text-white hover:bg-primary/90 disabled:opacity-60"
-          }`}
-        >
-          {saved ? "✓ Сохранено" : saving ? "Сохранение..." : "Сохранить"}
-        </button>
+        <div className="flex items-center gap-3 flex-wrap">
+          <label className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${
+            importing
+              ? "bg-muted text-muted-foreground cursor-wait"
+              : "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+          }`}>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            {importing ? "Импорт..." : "Импорт Excel"}
+            <input
+              type="file"
+              accept=".xlsx,.xls,.csv"
+              className="hidden"
+              disabled={importing}
+              onChange={handleImport}
+            />
+          </label>
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={saving}
+            className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+              saved
+                ? "bg-emerald-500 text-white"
+                : "bg-primary text-white hover:bg-primary/90 disabled:opacity-60"
+            }`}
+          >
+            {saved ? "✓ Сохранено" : saving ? "Сохранение..." : "Сохранить"}
+          </button>
+        </div>
       </div>
+
+      {importError && (
+        <div className="mb-4 bg-destructive/10 border border-destructive/30 rounded-xl p-4 text-sm text-destructive">
+          {importError}
+        </div>
+      )}
+      {importSuccess && (
+        <div className="mb-4 bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-sm text-emerald-700 font-medium">
+          ✓ {importSuccess}
+        </div>
+      )}
 
       <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mb-6 flex items-start gap-3">
         <svg className="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -129,7 +185,8 @@ export default function DashboardPricesPage() {
         </svg>
         <p className="text-sm text-foreground/80">
           Прайс-лист отображается на вашей странице компании и в общем каталоге цен.
-          Нажмите «Сохранить» чтобы опубликовать изменения.
+          Нажмите «Сохранить» чтобы опубликовать изменения. Для массовой загрузки используйте
+          кнопку «Импорт Excel» — файл должен содержать колонки <strong>Наименование</strong> и <strong>Цена</strong>.
         </p>
       </div>
 

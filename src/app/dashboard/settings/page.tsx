@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "../_components/auth-provider";
-import { apiGetCompany, apiUpdateCompany, type ApiCompany } from "@/shared/lib/api";
+import { apiGetCompany, apiUpdateCompany, apiUploadLogo, type ApiCompany } from "@/shared/lib/api";
 import { FISH_CATEGORIES, REGIONS } from "@/shared/config/site";
 
 const ACTIVITY_OPTIONS = [
@@ -34,6 +34,8 @@ export default function DashboardSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [logoUploading, setLogoUploading] = useState(false);
   const [form, setForm] = useState<FormState>({
     name: "", inn: "", city: "", region: "",
     phone: "", email: "", website: "", description: "",
@@ -45,6 +47,7 @@ export default function DashboardSettingsPage() {
     apiGetCompany(user.company.slug)
       .then((c) => {
         setCompany(c);
+        setLogoUrl(c.logoUrl);
         setForm({
           name: c.name ?? "",
           inn: c.inn ?? "",
@@ -69,6 +72,22 @@ export default function DashboardSettingsPage() {
         ? prev[field].filter((v) => v !== value)
         : [...prev[field], value],
     }));
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setLogoUploading(true);
+    setError(null);
+    try {
+      const res = await apiUploadLogo(token, file);
+      setLogoUrl(`http://localhost:3001${res.logoUrl}`);
+    } catch (err: any) {
+      setError(err.message ?? "Ошибка загрузки лого");
+    } finally {
+      setLogoUploading(false);
+      e.target.value = "";
+    }
   };
 
   const handleSave = async () => {
@@ -142,6 +161,44 @@ export default function DashboardSettingsPage() {
           {error}
         </div>
       )}
+
+      {/* Logo upload */}
+      <div className="bg-white rounded-xl border border-border p-6 mb-6 flex items-center gap-6">
+        <div className="shrink-0">
+          {logoUrl ? (
+            <img
+              src={logoUrl}
+              alt="Логотип компании"
+              className="w-20 h-20 rounded-xl object-contain border border-border bg-muted/30"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-xl bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground border border-border">
+              {form.name.charAt(0).toUpperCase() || "?"}
+            </div>
+          )}
+        </div>
+        <div>
+          <p className="font-medium text-foreground text-sm mb-1">Логотип компании</p>
+          <p className="text-xs text-muted-foreground mb-3">JPG, PNG, WebP, SVG — до 5 МБ</p>
+          <label className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors cursor-pointer ${
+            logoUploading
+              ? "bg-muted text-muted-foreground cursor-wait"
+              : "bg-primary/10 text-primary hover:bg-primary/20"
+          }`}>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            {logoUploading ? "Загрузка..." : "Загрузить лого"}
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              disabled={logoUploading}
+              onChange={handleLogoUpload}
+            />
+          </label>
+        </div>
+      </div>
 
       <div className="bg-white rounded-xl border border-border p-6 flex flex-col gap-5">
         {/* Название */}

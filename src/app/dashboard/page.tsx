@@ -53,12 +53,31 @@ export default function DashboardPage() {
   return (
     <div className="p-4 md:p-8 max-w-5xl">
       {/* Welcome */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-2xl font-bold text-foreground">Добрый день, {companyName}</h1>
         <p className="text-muted-foreground mt-1">
           Вот что происходит с вашим профилем на Fishopt
         </p>
       </div>
+
+      {/* Founder CTA banner */}
+      <Link
+        href="/support"
+        className="group flex items-center justify-between gap-4 bg-gradient-to-r from-amber-50 to-amber-100/60 border border-amber-200 rounded-xl p-4 mb-8 hover:border-amber-400 transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          <div className="text-2xl shrink-0" aria-hidden="true">⭐</div>
+          <div>
+            <p className="font-semibold text-amber-900 text-sm">Сейчас сервис бесплатный</p>
+            <p className="text-amber-700 text-xs mt-0.5">
+              В конце года появятся платные тарифы. Поддержите нас сейчас — и пользуйтесь бесплатно навсегда.
+            </p>
+          </div>
+        </div>
+        <span className="shrink-0 text-xs font-bold text-amber-700 bg-amber-200 group-hover:bg-amber-300 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+          Стать основателем →
+        </span>
+      </Link>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { PageTransition } from "@/shared/ui/PageTransition";
+import { AnnouncementBar } from "@/shared/ui/AnnouncementBar";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -99,6 +100,7 @@ export default function RootLayout({
             </filter>
           </defs>
         </svg>
+        <AnnouncementBar />
         <PageTransition>{children}</PageTransition>
       </body>
     </html>

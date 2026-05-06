@@ -82,6 +82,7 @@ export function Footer() {
                 { href: "/ads", label: "Объявления" },
                 { href: "/news", label: "Новости отрасли" },
                 { href: "/register", label: "Разместить компанию" },
+                { href: "/support", label: "❤️ Поддержать проект" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -94,6 +95,21 @@ export function Footer() {
               ))}
             </ul>
           </div>
+        </div>
+      </div>
+
+      {/* Founder CTA strip */}
+      <div className="relative z-[1] border-t border-white/10 bg-amber-500/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-white/80 text-sm">
+            <strong className="text-white">Сейчас бесплатно</strong> — поддержите проект и получите бесплатный доступ навсегда
+          </p>
+          <Link
+            href="/support"
+            className="shrink-0 px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
+          >
+            Стать основателем →
+          </Link>
         </div>
       </div>
 
