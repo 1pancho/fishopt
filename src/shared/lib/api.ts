@@ -156,6 +156,25 @@ export async function apiGetCompany(slug: string) {
   });
 }
 
+export function apiUpdateCompany(token: string, id: string, data: {
+  name?: string;
+  inn?: string;
+  region?: string;
+  city?: string;
+  phone?: string;
+  email?: string;
+  website?: string;
+  description?: string;
+  activityTypes?: string[];
+  categories?: string[];
+}) {
+  return apiFetch<ApiCompany>(`/companies/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
 // ── Prices ────────────────────────────────────────────────────────────────────
 
 export type FlatApiPriceItem = ApiPriceItem & {

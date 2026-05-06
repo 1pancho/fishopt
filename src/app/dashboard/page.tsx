@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "./_components/auth-provider";
