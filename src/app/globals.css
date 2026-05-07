@@ -921,6 +921,52 @@
   font-size: 13px;
 }
 
+/* Support page — hero & misc */
+@keyframes sp-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.08); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
+}
+@keyframes sp-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-50px, 25px) scale(1.1); }
+  75%       { transform: translate(30px, -20px) scale(0.92); }
+}
+@keyframes sp-pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes sp-gradient-border {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+@keyframes sp-number-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(245,158,11,0.3); }
+  50%       { text-shadow: 0 0 40px rgba(245,158,11,0.7), 0 0 80px rgba(245,158,11,0.3); }
+}
+.sp-orb-1 { animation: sp-orb-1 18s ease-in-out infinite; }
+.sp-orb-2 { animation: sp-orb-2 22s ease-in-out infinite; }
+.sp-pulse-ring { animation: sp-pulse-ring 2s ease-out infinite; }
+.sp-gradient-border {
+  background: linear-gradient(135deg, #f59e0b, #f97316, #f59e0b, #fbbf24);
+  background-size: 300% 300%;
+  animation: sp-gradient-border 4s ease infinite;
+}
+.sp-gradient-border-blue {
+  background: linear-gradient(135deg, #0369a1, #0ea5e9, #0369a1, #38bdf8);
+  background-size: 300% 300%;
+  animation: sp-gradient-border 5s ease infinite;
+}
+.sp-number-glow { animation: sp-number-glow 3s ease-in-out infinite; }
+.sp-amber-text {
+  background: linear-gradient(135deg, #f59e0b, #f97316, #fbbf24);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sp-gradient-border 3s ease infinite;
+}
+
 /* Tier cards — support page */
 @keyframes tier-shimmer {
   0% { background-position: 200% center; }
@@ -938,6 +984,152 @@
 .tier-badge-float {
   animation: tier-badge-float 3s ease-in-out infinite;
 }
+
+/* ===================== Support page — Aurora hero ===================== */
+@keyframes sp-aurora {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.sp-aurora {
+  background: linear-gradient(
+    -45deg,
+    #020d1a 0%,
+    #0c2a47 20%,
+    #0369a1 40%,
+    #0c4a6e 60%,
+    #071e38 80%,
+    #020d1a 100%
+  );
+  background-size: 400% 400%;
+  animation: sp-aurora 20s ease infinite;
+}
+
+/* Hero particles (reuse footer-bubbles keyframe) */
+.sp-hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sp-hero-particles::before,
+.sp-hero-particles::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 300%;
+  animation: footer-bubbles 32s linear infinite;
+}
+.sp-hero-particles::before {
+  background:
+    radial-gradient(circle at 10% 15%, rgba(255,255,255,0.10) 0, rgba(255,255,255,0.10) 2px, transparent 3px),
+    radial-gradient(circle at 25% 55%, transparent 0, transparent 4px, rgba(255,255,255,0.07) 5px, rgba(255,255,255,0.07) 6px, transparent 7px),
+    radial-gradient(circle at 40% 25%, rgba(255,255,255,0.09) 0, rgba(255,255,255,0.09) 1px, transparent 2px),
+    radial-gradient(circle at 60% 70%, transparent 0, transparent 5px, rgba(255,255,255,0.06) 6px, rgba(255,255,255,0.06) 7px, transparent 8px),
+    radial-gradient(circle at 75% 35%, rgba(255,255,255,0.10) 0, rgba(255,255,255,0.10) 2px, transparent 3px),
+    radial-gradient(circle at 88% 60%, transparent 0, transparent 3px, rgba(255,255,255,0.08) 4px, rgba(255,255,255,0.08) 5px, transparent 6px),
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,0.07) 0, rgba(255,255,255,0.07) 1px, transparent 2px),
+    radial-gradient(circle at 15% 82%, transparent 0, transparent 5px, rgba(255,255,255,0.06) 6px, rgba(255,255,255,0.06) 7px, transparent 8px),
+    radial-gradient(circle at 92% 20%, rgba(255,255,255,0.09) 0, rgba(255,255,255,0.09) 2px, transparent 3px),
+    radial-gradient(circle at 35% 92%, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 2px),
+    radial-gradient(circle at 70% 10%, transparent 0, transparent 4px, rgba(245,158,11,0.18) 5px, rgba(245,158,11,0.18) 6px, transparent 7px),
+    radial-gradient(circle at 5%  50%, rgba(14,165,233,0.15) 0, rgba(14,165,233,0.15) 2px, transparent 3px),
+    radial-gradient(circle at 55% 80%, rgba(245,158,11,0.12) 0, rgba(245,158,11,0.12) 1px, transparent 2px),
+    radial-gradient(circle at 30% 38%, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 2px),
+    radial-gradient(circle at 80% 88%, transparent 0, transparent 3px, rgba(14,165,233,0.10) 4px, rgba(14,165,233,0.10) 5px, transparent 6px);
+}
+.sp-hero-particles::after {
+  animation-delay: -16s;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 2px, transparent 3px),
+    radial-gradient(circle at 45% 65%, transparent 0, transparent 3px, rgba(255,255,255,0.06) 4px, rgba(255,255,255,0.06) 5px, transparent 6px),
+    radial-gradient(circle at 65% 20%, rgba(255,255,255,0.10) 0, rgba(255,255,255,0.10) 1px, transparent 2px),
+    radial-gradient(circle at 83% 75%, transparent 0, transparent 5px, rgba(255,255,255,0.07) 6px, rgba(255,255,255,0.07) 7px, transparent 8px),
+    radial-gradient(circle at 30% 10%, rgba(14,165,233,0.14) 0, rgba(14,165,233,0.14) 2px, transparent 3px),
+    radial-gradient(circle at 90% 42%, rgba(245,158,11,0.12) 0, rgba(245,158,11,0.12) 1px, transparent 2px),
+    radial-gradient(circle at 12% 70%, transparent 0, transparent 4px, rgba(255,255,255,0.08) 5px, rgba(255,255,255,0.08) 6px, transparent 7px),
+    radial-gradient(circle at 52%  5%, rgba(255,255,255,0.09) 0, rgba(255,255,255,0.09) 2px, transparent 3px),
+    radial-gradient(circle at 72% 55%, rgba(255,255,255,0.07) 0, rgba(255,255,255,0.07) 1px, transparent 2px),
+    radial-gradient(circle at 22% 95%, transparent 0, transparent 3px, rgba(245,158,11,0.14) 4px, rgba(245,158,11,0.14) 5px, transparent 6px);
+}
+
+/* Glowing badge on hero */
+@keyframes sp-badge-glow {
+  0%, 100% { box-shadow: 0 0 14px rgba(245,158,11,0.30), 0 0 0 0 rgba(245,158,11,0.15); }
+  50%       { box-shadow: 0 0 28px rgba(245,158,11,0.55), 0 0 0 5px rgba(245,158,11,0.08); }
+}
+.sp-badge-glow { animation: sp-badge-glow 3.2s ease-in-out infinite; }
+
+/* Amber CTA glow button */
+.cta-glow-amber {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 17px 48px;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  background: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #f97316 100%);
+  background-size: 250% 250%;
+  animation: cta-bg-shift 5s ease infinite;
+  box-shadow:
+    0 0 32px rgba(245,158,11,0.45),
+    0 8px 28px rgba(180,83,9,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.22);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+}
+.cta-glow-amber::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -80%;
+  width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-15deg);
+  animation: cta-shimmer 3.5s ease-in-out infinite;
+}
+.cta-glow-amber::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, #f59e0b, #f97316, #b45309, #f59e0b);
+  background-size: 300% 300%;
+  animation: cta-bg-shift 5s ease infinite, cta-ring-pulse 3.5s ease-in-out infinite;
+  z-index: -1;
+}
+.cta-glow-amber:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow:
+    0 0 55px rgba(245,158,11,0.65),
+    0 16px 44px rgba(180,83,9,0.70),
+    inset 0 1px 0 rgba(255,255,255,0.30);
+}
+.cta-glow-amber:active { transform: translateY(-1px) scale(1.01); }
+
+/* Stat card number glow */
+@keyframes sp-stat-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Animated gradient line */
+@keyframes sp-line-grow {
+  from { width: 0; opacity: 0; }
+  to   { width: 100%; opacity: 1; }
+}
+.sp-line-grow { animation: sp-line-grow 1s cubic-bezier(0.16,1,0.3,1) both; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

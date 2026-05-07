@@ -28,8 +28,7 @@ function AnnouncementStrip() {
 
   return (
     <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-8 gap-4">
-        <div className="flex-1" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex items-center justify-center h-8">
         <Link
           href="/support"
           className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap hover:underline underline-offset-2 transition-all"
@@ -38,18 +37,16 @@ function AnnouncementStrip() {
           <span>Сейчас бесплатно — станьте спонсором и сохраните доступ навсегда</span>
           <span aria-hidden="true" className="hidden sm:inline opacity-70">→</span>
         </Link>
-        <div className="flex-1 flex justify-end">
-          <button
-            type="button"
-            onClick={dismiss}
-            aria-label="Закрыть"
-            className="p-1 rounded opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={dismiss}
+          aria-label="Закрыть"
+          className="absolute right-4 sm:right-6 lg:right-8 p-1 rounded opacity-70 hover:opacity-100 transition-opacity"
+        >
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
     </div>
   );
