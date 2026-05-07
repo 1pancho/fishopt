@@ -31,11 +31,12 @@ function AnnouncementStrip() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex items-center justify-center h-8">
         <Link
           href="/support"
-          className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap hover:underline underline-offset-2 transition-all"
+          className="flex items-center gap-2 text-xs font-semibold hover:underline underline-offset-2 transition-all"
         >
           <span aria-hidden="true">🎉</span>
-          <span>Сейчас бесплатно — станьте спонсором и сохраните доступ навсегда</span>
-          <span aria-hidden="true" className="hidden sm:inline opacity-70">→</span>
+          <span className="sm:hidden">Станьте спонсором — доступ навсегда</span>
+          <span className="hidden sm:inline">Сейчас бесплатно — станьте спонсором и сохраните доступ навсегда</span>
+          <span aria-hidden="true" className="opacity-70">→</span>
         </Link>
         <button
           type="button"
