@@ -69,7 +69,7 @@ function TierCard({ tier, donateUrl }: { tier: Tier; donateUrl: string }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       onMouseEnter={() => setHovered(true)}
-      className={`p-px rounded-2xl ${cfg.wrapperClass}`}
+      className={`p-px rounded-2xl h-full ${cfg.wrapperClass}`}
       style={{
         transform: `perspective(900px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) scale(${scale})`,
         transition: hovered ? "transform 0.08s ease, box-shadow 0.2s ease" : "transform 0.5s ease, box-shadow 0.4s ease",
@@ -151,7 +151,7 @@ function TierCard({ tier, donateUrl }: { tier: Tier; donateUrl: string }) {
 
 export function TierCards({ tiers, donateUrl }: { tiers: Tier[]; donateUrl: string }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {tiers.map((tier) => (
         <TierCard key={tier.label} tier={tier} donateUrl={donateUrl} />
       ))}
