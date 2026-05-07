@@ -76,9 +76,7 @@ export const metadata: Metadata = {
     canonical: "https://fishopt.pro",
   },
   icons: {
-    icon: [{ url: "/logo.png", type: "image/png" }],
-    apple: [{ url: "/logo.png" }],
-    shortcut: [{ url: "/logo.png" }],
+    apple: [{ url: "/logo.png", sizes: "180x180" }],
   },
 };
 
