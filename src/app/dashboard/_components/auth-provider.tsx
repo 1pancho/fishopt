@@ -33,8 +33,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     apiGetMe(token)
       .then((user) => setAuth({ token, user }))
-      .catch(() => {
-        localStorage.removeItem("fishopt_token");
+      .catch((err: unknown) => {
+        // Удаляем токен только при явной ошибке авторизации (401)
+        // При сетевых ошибках / 5xx токен оставляем
+        if ((err as { status?: number }).status === 401) {
+          localStorage.removeItem("fishopt_token");
+        }
         router.replace("/login");
       });
   }, [router]);

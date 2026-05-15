@@ -89,7 +89,11 @@ export default async function CompanyPage({ params }: Props) {
                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-2xl shrink-0">
                     {company.logoUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={company.logoUrl} alt={company.name} className="w-full h-full object-contain rounded-xl" />
+                      <img
+                        src={company.logoUrl.startsWith("http") ? company.logoUrl : `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001"}${company.logoUrl}`}
+                        alt={company.name}
+                        className="w-full h-full object-contain rounded-xl"
+                      />
                     ) : (
                       company.name.charAt(0)
                     )}
@@ -242,12 +246,16 @@ export default async function CompanyPage({ params }: Props) {
                   </div>
                 )}
 
-                <button
-                  type="button"
-                  className="w-full py-2.5 px-4 rounded-lg border border-primary text-primary font-medium hover:bg-primary/5 transition-colors text-center"
+                <a
+                  href={
+                    company.email
+                      ? `mailto:${company.email}`
+                      : `mailto:info@fishopt.pro?subject=${encodeURIComponent(`Запрос по компании ${company.name}`)}`
+                  }
+                  className="w-full py-2.5 px-4 rounded-lg border border-primary text-primary font-medium hover:bg-primary/5 transition-colors text-center block"
                 >
                   Написать сообщение
-                </button>
+                </a>
 
                 {company.inn && (
                   <div className="mt-4 pt-4 border-t border-border">

@@ -25,6 +25,13 @@ export function LoginForm() {
     $loginError,
   ]);
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (localStorage.getItem("fishopt_token")) {
+      router.replace("/dashboard");
+    }
+  }, [router]);
+
   // Redirect after successful login
   useEffect(() => {
     const unwatch = loginFx.doneData.watch(() => {
