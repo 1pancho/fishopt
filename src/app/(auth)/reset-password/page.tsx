@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { ResetPasswordForm } from "./_components/ResetPasswordForm";
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function ResetPasswordPage() {
         <p className="text-white/65 text-sm leading-relaxed mb-6 text-center">
           Придумайте надёжный пароль для вашего аккаунта.
         </p>
-        <ResetPasswordForm />
+        <Suspense fallback={<div className="h-40 flex items-center justify-center"><div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" /></div>}>
+          <ResetPasswordForm />
+        </Suspense>
         <div className="mt-5 text-center">
           <Link
             href="/login"
