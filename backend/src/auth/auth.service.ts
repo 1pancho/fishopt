@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
@@ -17,6 +17,8 @@ function slugify(name: string): string {
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
@@ -87,7 +89,12 @@ export class AuthService {
       data: { token, userId: user.id, expiresAt },
     });
 
-    await this.mail.sendPasswordReset(user.email, token);
+    try {
+      await this.mail.sendPasswordReset(user.email, token);
+    } catch (err) {
+      // Логируем ошибку отправки, но не роняем запрос — токен уже сохранён
+      this.logger.error(`Failed to send password reset email to ${user.email}: ${err}`);
+    }
 
     return { message: 'Если email зарегистрирован, письмо отправлено' };
   }
