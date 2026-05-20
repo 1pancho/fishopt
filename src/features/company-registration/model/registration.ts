@@ -15,6 +15,7 @@ export type RegistrationData = {
   // Step 2 — Contacts
   phone: string;
   email: string;
+  password: string;
   website: string;
   description: string;
 };
@@ -32,7 +33,7 @@ export const submitRegistrationFx = createEffect(async (data: RegistrationData) 
   const result = await apiRegister({
     name: data.name,
     email: data.email,
-    password: data.phone, // временно используем phone как пароль — TODO: добавить поле пароля в форму
+    password: data.password,
     region: data.region,
     inn: data.inn || undefined,
     city: data.city || undefined,
@@ -59,6 +60,7 @@ export const $data = createStore<RegistrationData>({
   categories: [],
   phone: "",
   email: "",
+  password: "",
   website: "",
   description: "",
 })
@@ -73,13 +75,16 @@ export const $data = createStore<RegistrationData>({
   .reset(formReset);
 
 export const $isSubmitting = submitRegistrationFx.pending;
+export const $submitError = createStore<string | null>(null)
+  .on(submitRegistrationFx.failData, (_, err) => (err as { message?: string }).message ?? "Ошибка регистрации")
+  .reset(step2Submitted);
 
 export const $step1Valid = $data.map(
   (d) => d.name.trim().length >= 2 && d.region.length > 0 && d.activityTypes.length > 0
 );
 
 export const $step2Valid = $data.map(
-  (d) => d.email.includes("@") && d.phone.trim().length >= 10
+  (d) => d.email.includes("@") && d.password.trim().length >= 6
 );
 
 // Logic: submit step 1 → go to step 2
