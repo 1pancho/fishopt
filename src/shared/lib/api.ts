@@ -48,6 +48,20 @@ export function apiRegister(data: {
   });
 }
 
+export function apiForgotPassword(email: string) {
+  return apiFetch<{ message: string }>('/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+export function apiResetPassword(token: string, password: string) {
+  return apiFetch<{ message: string }>('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ token, password }),
+  });
+}
+
 export function apiGetMe(token: string) {
   return apiFetch<{ id: string; email: string; role: string; company: { slug: string; name: string } | null }>("/auth/me", {
     headers: { Authorization: `Bearer ${token}` },

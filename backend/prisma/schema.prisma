@@ -18,14 +18,25 @@ enum AdType {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id           String               @id @default(cuid())
+  email        String               @unique
   passwordHash String
-  role         UserRole @default(COMPANY)
-  company      Company? @relation(fields: [companyId], references: [id])
+  role         UserRole             @default(COMPANY)
+  company      Company?             @relation(fields: [companyId], references: [id])
   companyId    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  resetTokens  PasswordResetToken[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  token     String    @unique
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
 }
 
 model Company {

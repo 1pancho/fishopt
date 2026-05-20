@@ -117,7 +117,7 @@ export function Footer() {
       <div className="relative z-[1] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-white/40 text-xs">
-            © {new Date().getFullYear()} Fishopt. Все права защищены.
+            © {new Date().getFullYear()} Fishopt &mdash; ООО «Дальрыбпоставка», ИНН 7725618527
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="text-white/40 hover:text-white/60 text-xs transition-colors">

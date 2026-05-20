@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ForgotPasswordForm } from "./_components/ForgotPasswordForm";
+import { ResetPasswordForm } from "./_components/ResetPasswordForm";
 
 export const metadata: Metadata = {
-  title: "Восстановление пароля — Fishopt",
+  title: "Новый пароль — Fishopt",
   robots: { index: false, follow: false },
 };
 
-export default function ForgotPasswordPage() {
+export default function ResetPasswordPage() {
   return (
     <div className="w-full max-w-md">
       <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-white">
-        <div className="text-4xl mb-4 text-center" aria-hidden="true">🔑</div>
-        <h1 className="text-2xl font-bold mb-2 text-center">Восстановление пароля</h1>
+        <div className="text-4xl mb-4 text-center" aria-hidden="true">🔐</div>
+        <h1 className="text-2xl font-bold mb-2 text-center">Новый пароль</h1>
         <p className="text-white/65 text-sm leading-relaxed mb-6 text-center">
-          Введите email, указанный при регистрации. Мы пришлём ссылку для сброса пароля.
+          Придумайте надёжный пароль для вашего аккаунта.
         </p>
-        <ForgotPasswordForm />
+        <ResetPasswordForm />
         <div className="mt-5 text-center">
           <Link
             href="/login"
