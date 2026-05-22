@@ -1,27 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class MailService {
   private readonly logger = new Logger(MailService.name);
-  private transporter: nodemailer.Transporter;
 
-  constructor(private config: ConfigService) {
-    this.transporter = nodemailer.createTransport({
-      host: config.get<string>('SMTP_HOST', 'smtp.zoho.com'),
-      port: config.get<number>('SMTP_PORT', 587),
-      secure: false,
-      auth: {
-        user: config.get<string>('SMTP_USER', ''),
-        pass: config.get<string>('SMTP_PASS', ''),
-      },
-    });
-  }
+  constructor(private config: ConfigService) {}
 
   async sendPasswordReset(to: string, token: string): Promise<void> {
     const frontendUrl = this.config.get<string>('FRONTEND_URL', 'https://fishopt.pro');
-    const from = this.config.get<string>('SMTP_FROM', 'info@fishopt.pro');
+    const from = this.config.get<string>('MAIL_FROM', 'info@fishopt.pro');
+    const apiKey = this.config.get<string>('UNISENDER_API_KEY', '');
     const resetUrl = `${frontendUrl}/reset-password?token=${token}`;
 
     const html = `
@@ -70,12 +59,29 @@ export class MailService {
 </body>
 </html>`;
 
-    await this.transporter.sendMail({
-      from: `"Fishopt" <${from}>`,
-      to,
-      subject: 'Сброс пароля — Fishopt',
-      html,
+    const response = await fetch('https://go1.unisender.ru/ru/transactional/api/v1/email/send.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': apiKey,
+      },
+      body: JSON.stringify({
+        message: {
+          recipients: [{ email: to }],
+          from_email: from,
+          from_name: 'Fishopt',
+          subject: 'Сброс пароля — Fishopt',
+          body: { html },
+          track_links: 0,
+          track_read: 0,
+        },
+      }),
     });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(`UniSender Go error ${response.status}: ${text}`);
+    }
 
     this.logger.log(`Password reset email sent to ${to}`);
   }
