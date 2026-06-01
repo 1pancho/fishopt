@@ -59,7 +59,7 @@ export class MailService {
 </body>
 </html>`;
 
-    const response = await fetch('https://go1.unisender.ru/ru/transactional/api/v1/email/send.json', {
+    const response = await fetch('https://go2.unisender.ru/ru/transactional/api/v1/email/send.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
