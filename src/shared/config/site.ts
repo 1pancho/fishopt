@@ -13,7 +13,7 @@ export const siteConfig = {
   // Ссылка для доната — замените на реальный URL (ЮKassa, Tinkoff и т.д.)
   donateUrl: "https://yoomoney.ru/to/fishopt",
   // Планируемая дата перехода на платный доступ
-  paidLaunchDate: "декабрь 2025",
+  paidLaunchDate: "декабрь 2026",
 } as const;
 
 export const FISH_CATEGORIES = [
