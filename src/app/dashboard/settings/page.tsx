@@ -81,7 +81,8 @@ export default function DashboardSettingsPage() {
     setError(null);
     try {
       const res = await apiUploadLogo(token, file);
-      setLogoUrl(`http://localhost:3001${res.logoUrl}`);
+      const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+      setLogoUrl(res.logoUrl.startsWith("http") ? res.logoUrl : `${apiBase}${res.logoUrl}`);
     } catch (err: any) {
       setError(err.message ?? "Ошибка загрузки лого");
     } finally {
