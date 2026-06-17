@@ -8,9 +8,9 @@ import { LiveActivityWidget } from "./LiveActivityWidget";
 import { MagneticButton } from "@/shared/ui/MagneticButton";
 
 const stats = [
-  { value: "3 500+", label: "компаний" },
-  { value: "85", label: "регионов России" },
+  { value: "10", label: "регионов России" },
   { value: "12", label: "видов продукции" },
+  { value: "Бесплатно", label: "для компаний" },
   { value: "Ежедневно", label: "обновляем прайсы" },
 ];
 
@@ -47,7 +47,7 @@ export function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2dd4bf] opacity-75" />
               <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-[#2dd4bf]" />
             </span>
-            Портал №1 для оптовой торговли рыбой в России
+            B2B портал оптовой торговли рыбой в России
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
