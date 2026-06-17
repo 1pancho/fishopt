@@ -37,12 +37,30 @@ async function PricesContent({
   processing?: string;
   inStock?: string;
 }) {
-  const items = await apiGetPrices({
+  const raw = await apiGetPrices({
     q,
     category,
     processingType: processing,
     inStock: inStock === "1" ? true : undefined,
   }).catch(() => []);
+
+  // Map API field names (id/name) to FlatPriceItem (itemId/itemName)
+  const items = raw.map((item) => ({
+    itemId: item.id,
+    itemName: item.name,
+    category: item.category,
+    processingType: item.processingType,
+    price: item.price,
+    unit: item.unit as "kg" | "ton",
+    minOrder: item.minOrder ?? undefined,
+    inStock: item.inStock,
+    companyId: "",
+    companyName: item.companyName,
+    companySlug: item.companySlug,
+    region: item.region,
+    updatedAt: item.updatedAt,
+    priceListId: "",
+  }));
 
   const hasFilters = !!(q || category || processing || inStock);
 
@@ -85,7 +103,7 @@ async function PricesContent({
         </div>
       </div>
 
-      <PriceTable items={items as any} />
+      <PriceTable items={items} />
     </div>
   );
 }

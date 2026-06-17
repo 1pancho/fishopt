@@ -2,6 +2,29 @@ import { Injectable, BadRequestException, ForbiddenException } from '@nestjs/com
 import { PrismaService } from '../prisma/prisma.service';
 import * as XLSX from 'xlsx';
 
+const CATEGORY_KEYWORDS: Array<{ keywords: string[]; category: string }> = [
+  { keywords: ['горбуша'], category: 'Горбуша' },
+  { keywords: ['лосось', 'кета', 'нерка', 'чавыча', 'кижуч', 'сёмга', 'семга', 'форель', 'сима'], category: 'Лосось' },
+  { keywords: ['треска', 'пикша', 'навага', 'сайда'], category: 'Треска' },
+  { keywords: ['краб', 'стригун', 'опилио'], category: 'Краб' },
+  { keywords: ['креветка', 'креветки'], category: 'Креветка' },
+  { keywords: ['минтай'], category: 'Минтай' },
+  { keywords: ['икра'], category: 'Икра' },
+  { keywords: ['кальмар'], category: 'Кальмар' },
+  { keywords: ['сельдь', 'сельди'], category: 'Сельдь' },
+  { keywords: ['осётр', 'осетр', 'стерлядь', 'белуга', 'севрюга'], category: 'Осётр' },
+  { keywords: ['тунец'], category: 'Тунец' },
+  { keywords: ['муксун'], category: 'Муксун' },
+];
+
+function detectCategory(name: string): string {
+  const lower = name.toLowerCase();
+  for (const { keywords, category } of CATEGORY_KEYWORDS) {
+    if (keywords.some((kw) => lower.includes(kw))) return category;
+  }
+  return 'Прочее';
+}
+
 @Injectable()
 export class UploadService {
   constructor(private prisma: PrismaService) {}
@@ -35,8 +58,9 @@ export class UploadService {
           row['Наименование'] || row['Название'] || row['name'] || row['Name'] || '';
         const priceRaw =
           row['Цена'] || row['Цена, руб/кг'] || row['price'] || row['Price'] || 0;
-        const category =
-          row['Категория'] || row['Вид'] || row['category'] || row['Category'] || 'Прочее';
+        const categoryRaw =
+          row['Категория'] || row['Вид'] || row['category'] || row['Category'] || '';
+        const category = categoryRaw ? String(categoryRaw).trim() : detectCategory(String(name));
         const processingType =
           row['Обработка'] || row['processingType'] || row['Тип обработки'] || 'Мороженая';
         const minOrder =
@@ -53,7 +77,7 @@ export class UploadService {
 
         return {
           name: String(name).trim(),
-          category: String(category).trim() || 'Прочее',
+          category: String(category).trim() || detectCategory(String(name)),
           processingType: String(processingType).trim() || 'Мороженая',
           price,
           minOrder: minOrder ? Number(minOrder) : null,
