@@ -51,3 +51,5 @@ backend/node_modules/
 
 # Deploy
 ecosystem.config.js
+playwright-report/
+test-results/

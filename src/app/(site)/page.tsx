@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { Hero, WhyFishopt } from "@/widgets/hero";
 import { CategoriesGrid } from "@/widgets/catalog-filters";
 import { RecentCompanies } from "@/widgets/company-card";
@@ -24,7 +22,6 @@ export default function HomePage() {
   return (
     <>
       <ScrollProgressBar />
-      <Header />
       <PriceTicker />
       <main id="main-content">
         <Hero />
@@ -81,7 +78,6 @@ export default function HomePage() {
           </section>
         </ScrollReveal>
       </main>
-      <Footer />
     </>
   );
 }

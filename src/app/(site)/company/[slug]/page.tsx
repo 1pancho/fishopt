@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { apiGetCompanies, apiGetCompany } from "@/shared/lib/api";
 
 type Props = {
@@ -59,7 +57,6 @@ export default async function CompanyPage({ params }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Breadcrumb */}
         <div className="bg-white border-b border-border">
@@ -273,7 +270,6 @@ export default async function CompanyPage({ params }: Props) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

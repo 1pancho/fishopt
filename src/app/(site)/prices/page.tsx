@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { PriceFilters, PriceTable } from "@/widgets/price-table";
 import { apiGetPrices } from "@/shared/lib/api";
 
@@ -114,7 +112,6 @@ export default async function PricesPage({ searchParams }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Page header */}
         <div className="bg-white border-b border-border">
@@ -194,7 +191,6 @@ export default async function PricesPage({ searchParams }: Props) {
         {/* Spacer for fixed mobile bar */}
         <div className="md:hidden h-16" aria-hidden="true" />
       </main>
-      <Footer />
     </>
   );
 }

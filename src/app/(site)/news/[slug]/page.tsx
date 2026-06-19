@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { categoryLabels } from "@/shared/lib/news";
 import { apiGetNews, apiGetArticle } from "@/shared/lib/api";
 import { ShareButtons } from "@/widgets/news-card/ui/ShareButtons";
@@ -57,7 +55,6 @@ export default async function NewsArticlePage({ params }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Breadcrumb */}
         <div className="bg-white border-b border-border">
@@ -168,7 +165,6 @@ export default async function NewsArticlePage({ params }: Props) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

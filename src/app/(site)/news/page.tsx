@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { apiGetNews } from "@/shared/lib/api";
 import { NEWS_CATEGORIES, categoryLabels } from "@/shared/lib/news";
 import { NewsSubscribeForm } from "@/widgets/news-card";
@@ -33,7 +31,6 @@ export default async function NewsPage({ searchParams }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Header */}
         <div className="bg-white border-b border-border">
@@ -184,7 +181,6 @@ export default async function NewsPage({ searchParams }: Props) {
           )}
         </div>
       </main>
-      <Footer />
     </>
   );
 }

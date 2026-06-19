@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { PageTransition } from "@/shared/ui/PageTransition";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -97,7 +96,7 @@ export default function RootLayout({
             </filter>
           </defs>
         </svg>
-        <PageTransition>{children}</PageTransition>
+        {children}
       </body>
     </html>
   );

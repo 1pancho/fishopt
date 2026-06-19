@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { CompanyFilters, MobileFiltersDrawer } from "@/widgets/catalog-filters";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
@@ -94,7 +92,6 @@ export default async function CompaniesPage({ searchParams }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Breadcrumb */}
         <div className="bg-white border-b border-border">
@@ -158,7 +155,6 @@ export default async function CompaniesPage({ searchParams }: Props) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

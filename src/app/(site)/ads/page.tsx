@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { apiGetAds } from "@/shared/lib/api";
 import { AdCard } from "@/entities/ad";
 import { AdFilters } from "@/widgets/ad-board";
@@ -124,7 +122,6 @@ export default async function AdsPage({ searchParams }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Header */}
         <div className="bg-white border-b border-border">
@@ -176,7 +173,6 @@ export default async function AdsPage({ searchParams }: Props) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

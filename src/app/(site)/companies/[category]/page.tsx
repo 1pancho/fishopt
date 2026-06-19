@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { CompanyFilters, MobileFiltersDrawer } from "@/widgets/catalog-filters";
 import { CompanyCard } from "@/entities/company";
 import { apiGetCompanies } from "@/shared/lib/api";
@@ -54,7 +52,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         {/* Category hero */}
         <div className="bg-gradient-to-r from-[#0c4a6e] to-[#0369a1] text-white">
@@ -148,7 +145,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

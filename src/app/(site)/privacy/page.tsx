@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 
 export const metadata: Metadata = {
   title: "Политика конфиденциальности — Fishopt",
@@ -15,7 +13,6 @@ const UPDATED = "20 мая 2026 г.";
 export default function PrivacyPage() {
   return (
     <>
-      <Header />
       <main className="flex-1 bg-muted/30">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumb */}
@@ -135,7 +132,6 @@ export default function PrivacyPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

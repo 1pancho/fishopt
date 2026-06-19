@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/widgets/header";
-import { Footer } from "@/widgets/footer";
 import { siteConfig } from "@/shared/config/site";
 import { TierCards } from "./_components/TierCards";
 import { FAQAccordion } from "./_components/FAQAccordion";
@@ -186,7 +184,6 @@ function WhyCard({ title, desc, d }: { title: string; desc: string; d: string })
 export default function SupportPage() {
   return (
     <>
-      <Header />
       <main>
         {/* ─── HERO ─────────────────────────────────────────────────────── */}
         <section className="sp-aurora relative text-white overflow-hidden min-h-[88vh] flex flex-col items-center justify-center py-28 px-4 text-center">
@@ -460,7 +457,6 @@ export default function SupportPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }
