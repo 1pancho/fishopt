@@ -284,6 +284,16 @@
   50%       { opacity: 0; }
 }
 
+/* Orbiting icons (Hero) */
+@keyframes orbit-cw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes orbit-ccw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
 /* Price ticker scrolling marquee */
 @keyframes ticker-scroll {
   0%   { transform: translateX(0); }
@@ -300,7 +310,8 @@
 @media (prefers-reduced-motion: reduce) {
   .fish-float, .orb-drift, .orb-drift-slow, .btn-glow,
   .gradient-text-anim, .stagger-fade, .animate-fade-up,
-  .sr-hidden, .tilt-wrap, .ticker-track { animation: none !important; transition: none !important; }
+  .sr-hidden, .tilt-wrap, .ticker-track,
+  [style*="orbit-cw"], [style*="orbit-ccw"] { animation: none !important; transition: none !important; }
   .sr-hidden, .stagger-fade, .animate-fade-up { opacity: 1 !important; transform: none !important; }
   .gradient-text-anim { -webkit-text-fill-color: #38bdf8; }
 }

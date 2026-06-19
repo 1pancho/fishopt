@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Hero, WhyFishopt } from "@/widgets/hero";
+import { Hero, WhyFishopt, FishOrbitSection } from "@/widgets/hero";
 import { CategoriesGrid } from "@/widgets/catalog-filters";
 import { RecentCompanies } from "@/widgets/company-card";
-import { NewsPreview } from "@/widgets/news-card";
 import { ScrollReveal } from "@/shared/ui/ScrollReveal";
 import { PriceTicker } from "@/widgets/price-ticker";
 import { ScrollProgressBar } from "@/shared/ui/ScrollProgressBar";
@@ -31,8 +30,8 @@ export default function HomePage() {
         <ScrollReveal delay={100}>
           <RecentCompanies />
         </ScrollReveal>
-        <ScrollReveal delay={50}>
-          <NewsPreview />
+        <ScrollReveal delay={60}>
+          <FishOrbitSection />
         </ScrollReveal>
         <ScrollReveal delay={80}>
           <WhyFishopt />
