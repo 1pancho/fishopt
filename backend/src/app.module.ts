@@ -7,6 +7,7 @@ import { PricesModule } from './prices/prices.module';
 import { AdsModule } from './ads/ads.module';
 import { NewsModule } from './news/news.module';
 import { UploadModule } from './upload/upload.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UploadModule } from './upload/upload.module';
     AdsModule,
     NewsModule,
     UploadModule,
+    PaymentsModule,
   ],
 })
 export class AppModule {}

@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { DonateModal } from "@/shared/ui/DonateModal";
 
 type Tier = {
   amountLabel: string;
   amountSub: string;
+  amount: number;
   label: string;
   badge: string;
   highlight: string | null;
@@ -40,7 +42,7 @@ const CONFIG = {
   },
 } as const;
 
-function TierCard({ tier, donateUrl }: { tier: Tier; donateUrl: string }) {
+function TierCard({ tier }: { tier: Tier }) {
   const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
@@ -136,24 +138,21 @@ function TierCard({ tier, donateUrl }: { tier: Tier; donateUrl: string }) {
           ))}
         </ul>
 
-        <a
-          href={donateUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <DonateModal
+          defaultAmount={tier.amount}
+          label={tier.cta}
           className={`relative z-10 w-full text-center py-3 rounded-xl font-bold text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 ${cfg.cta}`}
-        >
-          {tier.cta}
-        </a>
+        />
       </div>
     </div>
   );
 }
 
-export function TierCards({ tiers, donateUrl }: { tiers: Tier[]; donateUrl: string }) {
+export function TierCards({ tiers }: { tiers: Tier[] }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {tiers.map((tier) => (
-        <TierCard key={tier.label} tier={tier} donateUrl={donateUrl} />
+        <TierCard key={tier.label} tier={tier} />
       ))}
     </div>
   );

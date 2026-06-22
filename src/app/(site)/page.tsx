@@ -7,6 +7,7 @@ import { ScrollReveal } from "@/shared/ui/ScrollReveal";
 import { PriceTicker } from "@/widgets/price-ticker";
 import { ScrollProgressBar } from "@/shared/ui/ScrollProgressBar";
 import { siteConfig } from "@/shared/config/site";
+import { DonateModal } from "@/shared/ui/DonateModal";
 
 export const metadata: Metadata = {
   title: "Fishopt — Оптовая торговля рыбой и морепродуктами в России",
@@ -54,15 +55,11 @@ export default function HomePage() {
                 и никогда не платите за то, что делаете бесплатно сегодня.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href={siteConfig.donateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <DonateModal
+                  defaultAmount={500}
+                  label="❤️ Поддержать проект"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white font-bold text-base transition-colors shadow-lg shadow-amber-900/30"
-                >
-                  <span aria-hidden="true">❤️</span>
-                  Поддержать проект
-                </a>
+                />
                 <Link
                   href="/support"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/30 hover:bg-white/10 text-white font-semibold text-base transition-colors"

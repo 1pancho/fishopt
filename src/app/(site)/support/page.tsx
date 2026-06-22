@@ -4,6 +4,7 @@ import { siteConfig } from "@/shared/config/site";
 import { TierCards } from "./_components/TierCards";
 import { FAQAccordion } from "./_components/FAQAccordion";
 import { ScrollReveal, CountUp } from "./_components/SupportAnimations";
+import { DonateModal } from "@/shared/ui/DonateModal";
 
 export const metadata: Metadata = {
   title: "Поддержать Fishopt — стать спонсором",
@@ -15,6 +16,7 @@ const TIERS = [
   {
     amountLabel: "Любая сумма",
     amountSub: "от 500 \u20bd",
+    amount: 500,
     label: "Спонсор",
     badge: "🤝",
     highlight: null,
@@ -29,6 +31,7 @@ const TIERS = [
   {
     amountLabel: "30 000 \u20bd",
     amountSub: "единовременно",
+    amount: 30000,
     label: "Основатель",
     badge: "⭐",
     highlight: "−50% в первый год",
@@ -45,6 +48,7 @@ const TIERS = [
   {
     amountLabel: "от 100 000 \u20bd",
     amountSub: "единовременно",
+    amount: 100000,
     label: "Партнёр",
     badge: "🚀",
     highlight: "Бесплатно навсегда",
@@ -220,15 +224,11 @@ export default function SupportPage() {
 
             {/* CTA row */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href={siteConfig.donateUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <DonateModal
+                defaultAmount={500}
+                label="❤️ Поддержать проект"
                 className="cta-glow-amber"
-              >
-                <span aria-hidden="true">❤️</span>
-                Поддержать проект
-              </a>
+              />
               <a
                 href="#tiers"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white/75 hover:text-white hover:border-white/40 hover:bg-white/5 font-semibold text-sm transition-all backdrop-blur-sm"
@@ -361,19 +361,16 @@ export default function SupportPage() {
               </p>
             </ScrollReveal>
 
-            <TierCards tiers={TIERS} donateUrl={siteConfig.donateUrl} />
+            <TierCards tiers={TIERS} />
 
             <ScrollReveal delay={200}>
               <p className="text-center text-xs text-muted-foreground mt-8">
                 Хотите поддержать на другую сумму?{" "}
-                <a
-                  href={siteConfig.donateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <DonateModal
+                  defaultAmount={500}
+                  label="Введите свою сумму"
                   className="text-primary underline underline-offset-2 hover:text-primary/80"
-                >
-                  Введите свою сумму на странице оплаты
-                </a>
+                />
               </p>
             </ScrollReveal>
           </div>
@@ -434,15 +431,11 @@ export default function SupportPage() {
                 это вклад в инструмент, которым пользуетесь вы и тысячи ваших коллег.
               </p>
 
-              <a
-                href={siteConfig.donateUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <DonateModal
+                defaultAmount={500}
+                label="⭐ Стать спонсором"
                 className="cta-glow-amber"
-              >
-                <span aria-hidden="true">⭐</span>
-                Стать спонсором
-              </a>
+              />
 
               <p className="text-white/35 text-xs mt-8">
                 Вопросы:{" "}

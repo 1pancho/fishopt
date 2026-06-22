@@ -57,6 +57,7 @@ model Company {
   priceLists     PriceList[]
   ads            Ad[]
   users          User[]
+  donations      Donation[]
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 }
@@ -104,6 +105,21 @@ model Ad {
   expiresAt   DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Donation {
+  id           String    @id @default(cuid())
+  yukassaId    String?   @unique
+  amount       Float
+  currency     String    @default("RUB")
+  status       String    @default("pending") // pending | succeeded | canceled
+  description  String?
+  donorName    String?
+  donorEmail   String?
+  companyId    String?
+  company      Company?  @relation(fields: [companyId], references: [id])
+  confirmedAt  DateTime?
+  createdAt    DateTime  @default(now())
 }
 
 model NewsArticle {
